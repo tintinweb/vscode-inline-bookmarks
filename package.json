@@ -1,0 +1,145 @@
+{
+    "name": "vscode-inline-bookmarks",
+    "displayName": "Inline Bookmarks",
+    "description": "Customizable inline Bookmarks",
+    "version": "0.0.3",
+    "keywords": [
+        "bookmark",
+        "audit",
+        "audit-tag",
+        "tag",
+        "sticky",
+        "jump",
+        "mark",
+        "selection",
+        "navigation"
+    ],
+    "publisher": "tintinweb",
+    "icon": "images/icon.png",
+    "engines": {
+        "vscode": "^1.20.2"
+    },
+    "categories": [
+        "Other"
+    ],
+    "bugs": {
+        "url": "https://github.com/tintinweb/vscode-inline-bookmarks/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tintinweb/vscode-inline-bookmarks"
+    },
+    "activationEvents": [
+        "*",
+        "onView:inlineBookmarksExplorer"
+    ],
+    "main": "./src/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "inlineBookmarks.jumpToRange",
+                "title": "jump to line"
+            },
+            {
+                "command": "inlineBookmarks.refresh",
+                "title": "rescan workspace",
+                "icon": {
+                    "light": "images/refresh-light.svg",
+                    "dark": "images/refresh-dark.svg"
+                }
+            }
+        ],
+        "views": {
+            "explorer": [
+                {
+                    "id": "inlineBookmarksExplorer",
+                    "name": "📘 Inline Bookmarks"
+                }
+            ]
+        },
+        "menus": {
+            "view/title": [
+                {
+                    "command": "inlineBookmarks.refresh",
+                    "when": "view == inlineBookmarksExplorer",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "configuration": {
+            "type": "object",
+            "title": "Inline Bookmarks",
+            "properties": {
+                "inline-bookmarks.styles": {
+                    "type": "object",
+                    "default": {
+                        "default": {
+                            "gutterIconPath": "images/bookmark-blue.svg",
+                            "overviewRulerColor": "rgba(21, 126, 251, 0.7)",
+                            "light": {
+                                "fontWeight": "bold"
+                            },
+                            "dark": {
+                                "color": "Chocolate"
+                            }
+                        },
+                        "red": {
+                            "gutterIconPath": "images/bookmark-red.svg",
+                            "light": {
+                                "fontWeight": "bold"
+                            },
+                            "dark": {
+                                "color": "Chocolate"
+                            }
+                        },
+                        "blue": {
+                            "gutterIconPath": "images/bookmark-blue.svg",
+                            "light": {
+                                "fontWeight": "bold"
+                            },
+                            "dark": {
+                                "color": "Chocolate"
+                            }
+                        },
+                        "green": {
+                            "gutterIconPath": "images/bookmark-green.svg",
+                            "light": {
+                                "fontWeight": "bold"
+                            },
+                            "dark": {
+                                "color": "Chocolate"
+                            }
+                        },
+                        "purple": {
+                            "gutterIconPath": "images/bookmark-purple.svg",
+                            "light": {
+                                "fontWeight": "bold"
+                            },
+                            "dark": {
+                                "color": "Chocolate"
+                            }
+                        }
+                    },
+                    "description": "Specify Decoration Profiles",
+                    "properties": { 
+                    }
+                },
+                "inline-bookmarks.words": {
+                    "type": "object",
+                    "default": {
+                        "blue": ["@audit\\-info[ \\t\\n]", "@todo[ \\t\\n]", "@note[ \\t\\n]"],
+                        "purple": ["@audit\\-issue[ \t\\n]"],
+                        "green": ["@audit\\-ok[ \\t\\n]"],
+                        "red": ["@audit[ \\t\\n]"]
+                    },
+                    "description": "Assigns tags/trigger words to decoration profiles",
+                    "properties": {
+                        
+                    }
+                }
+            }
+        }
+    },
+    "dependencies": {
+    }
+}
