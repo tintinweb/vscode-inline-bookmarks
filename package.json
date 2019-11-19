@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable inline Bookmarks",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "keywords": [
         "bookmark",
         "audit",
@@ -12,7 +12,8 @@
         "jump",
         "mark",
         "selection",
-        "navigation"
+        "navigation",
+        "highlight"
     ],
     "publisher": "tintinweb",
     "icon": "images/icon.png",

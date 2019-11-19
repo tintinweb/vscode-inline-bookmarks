@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.0.4 - 0.0.5
+- fix: bookmarks view: files are not removed when all bookmarks are deleted
+
 ## 0.0.3
 - bookmarks view: sort list of files
 - bookmarks view: added refresh button to refresh tracked files
