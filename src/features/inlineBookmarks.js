@@ -19,7 +19,6 @@ class Commands {
     refresh() {
         Object.keys(this.controller.bookmarks).forEach(uri => {
             vscode.workspace.openTextDocument(vscode.Uri.parse(uri)).then(document => {
-                console.error(document)
                 this.controller.updateBookmarks(document)
             });
         }, this);
@@ -83,15 +82,16 @@ class InlineBookmarksCtrl {
 
         editor.setDecorations(decoStyle, locations);  // set decorations
 
-        this._addBookmark(editor.document, style, locations)
+        if(locations.length)
+            this._addBookmark(editor.document, style, locations)
     }
 
     async _updateBookmarksForWordAndStyle(document, words, style){
-        const decoStyle = this.styles[style] || this.styles['default'];
 
         let locations = this._findWords(document, words);
 
-        this._addBookmark(document, style, locations);
+        if(locations.length)
+            this._addBookmark(document, style, locations);
     }
 
     _findWords(document, words){
@@ -189,7 +189,7 @@ class InlineBookmarksCtrl {
 
     loadFromWorkspace(){
         if(!this._isWorkspaceAvailable()) return; //cannot load
-        this.bookmarks = JSON.parse(this.context.workspaceState.get("bookmarks.object", "{}"));  //@audit-ok workspace is trusted :)
+        this.bookmarks = JSON.parse(this.context.workspaceState.get("bookmarks.object", "{}"));
 
         //remove all non existing files
         Object.keys(this.bookmarks).forEach(filepath => {
@@ -198,7 +198,7 @@ class InlineBookmarksCtrl {
                 return;
             }
             
-            Object.keys(this.bookmarks[filepath]).forEach(cat => {  //@audit - validate data before objectifying it
+            Object.keys(this.bookmarks[filepath]).forEach(cat => {
                 //for each category
                 this.bookmarks[filepath][cat] = this.bookmarks[filepath][cat].map(decoObject => {
                     //fix - rebuild range object (it is expected by other functions)
@@ -296,7 +296,7 @@ class InlineBookmarkTreeDataProvider {
             collapsibleState: element.type==NodeType.LOCATION ? 0 : vscode.TreeItemCollapsibleState.Collapsed,
             command: element.type == NodeType.LOCATION && element.location ? {
                 command: 'inlineBookmarks.jumpToRange',
-                arguments: [element.location.uri, element.location.range],  //@audit-issue - filed: only works with range objects
+                arguments: [element.location.uri, element.location.range],
                 title: 'JumpTo'
             } : 0
         };
@@ -305,7 +305,7 @@ class InlineBookmarkTreeDataProvider {
     /** other methods */
 
     refresh(){
-        this._onDidChangeTreeData.fire(); //@audit-info - notify treeview 
+        this._onDidChangeTreeData.fire();
     }
 }
 
