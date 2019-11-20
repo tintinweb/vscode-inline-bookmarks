@@ -5,6 +5,7 @@
     "version": "0.0.5",
     "keywords": [
         "bookmark",
+        "bookmarks",
         "audit",
         "audit-tag",
         "tag",
@@ -39,11 +40,13 @@
         "commands": [
             {
                 "command": "inlineBookmarks.jumpToRange",
-                "title": "jump to line"
+                "title": "jump to line",
+                "category": "InlineBookmarks"
             },
             {
                 "command": "inlineBookmarks.refresh",
                 "title": "rescan workspace",
+                "category": "InlineBookmarks",
                 "icon": {
                     "light": "images/refresh-light.svg",
                     "dark": "images/refresh-dark.svg"
