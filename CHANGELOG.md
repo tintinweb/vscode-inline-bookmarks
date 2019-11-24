@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.0.6
+- fix: "rejected promise not handled ..."
+
 ## 0.0.4 - 0.0.5
 - fix: bookmarks view: files are not removed when all bookmarks are deleted
 

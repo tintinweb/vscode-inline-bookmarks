@@ -39,7 +39,7 @@ function onActivate(context) {
     context.subscriptions.push(
         vscode.commands.registerCommand("inlineBookmarks.jumpToRange", (documentUri, range) => {
             vscode.workspace.openTextDocument(documentUri).then(doc => {
-                vscode.window.showTextDocument(doc ).then(editor => {
+                vscode.window.showTextDocument(doc).then(editor => {
                     editorJumptoRange(range);
                 });
             });
@@ -81,13 +81,14 @@ function onActivate(context) {
 
     /************* handler */
     async function onDidChange(editor, event) {
-        return new Promise((reject,resolve) => {
-            resolve(auditTags.decorate(editor))
+        return new Promise((resolve,reject) => {
+            auditTags.decorate(editor);
+            resolve();
         });
     }
     
     async function onDidSave(editor) {
-        return new Promise((reject,resolve) => {
+        return new Promise((resolve,reject) => {
             auditTags.decorate(editor);
             treeDataProvider.refresh();
             resolve();
