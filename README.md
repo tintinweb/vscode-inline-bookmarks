@@ -10,7 +10,7 @@
 
 Code navigation for inline bookmarks made easy.
 
-Other extensions only allow you to specify bookmarks within your IDE. With Inline Bookmarks you can specify trigger words within your documents that are automatically turned into VSCode Bookmarks. They will show up with a customizable gutter icon next to the code lines and trigger words will be highlighted as well. An **Inline Bookmarks` View in the Explorer Pane helps you keep track of all your bookmarks. Navigating to the bookmark is as easy as clicking on an item in the view.
+Other extensions only allow you to specify bookmarks within your IDE. With Inline Bookmarks you can specify trigger words within your documents that are automatically turned into VSCode Bookmarks. They will show up with a customizable gutter icon next to the code lines and trigger words will be highlighted as well. An **Inline Bookmarks** View in the Explorer Pane helps you keep track of all your bookmarks. Navigating to the bookmark is as easy as clicking on an item in the view.
 
 It's really useful to keep track of development notes and todos as well as log analysis, auditing and review purposes. Since bookmarks are mainly stored in your documents you can easily share your notes with others.
 
