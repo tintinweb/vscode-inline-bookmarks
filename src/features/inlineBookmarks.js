@@ -8,7 +8,6 @@
 /** imports */
 const vscode = require('vscode');
 const fs = require("fs");
-
 const settings = require('../settings')
 
 class Commands {
@@ -45,12 +44,12 @@ class InlineBookmarksCtrl {
     }
 
     async decorate(editor){
-        if (!editor || !editor.document || editor.document.fileName.startsWith("extension-output-")) return;
-
+        if (!editor || !editor.document || editor.document.fileName.startsWith("extension-output-") || this._extensionIsBlacklisted(editor.document.fileName)) return;
+        
         this._clearBookmarksOfFile(editor.document)
 
         for (var style in this.words) {
-            if (!this.words.hasOwnProperty(style) || this.words[style].length == 0) {           
+            if (!this.words.hasOwnProperty(style) || this.words[style].length == 0 || this._wordIsOnIgnoreList(this.words[style])) {           
                 continue;
             }
             this._decorateWords(editor, this.words[style], style);
@@ -60,11 +59,12 @@ class InlineBookmarksCtrl {
     }
 
     async updateBookmarks(document){
-        
-        if (!document || document.fileName.startsWith("extension-output-")) return;
+        if (!document || document.fileName.startsWith("extension-output-") || this._extensionIsBlacklisted(document.fileName)) return;
+
+        this._clearBookmarksOfFile(document)
 
         for (var style in this.words) {
-            if (!this.words.hasOwnProperty(style) || this.words[style].length == 0) {           
+            if (!this.words.hasOwnProperty(style) || this.words[style].length == 0 || this._wordIsOnIgnoreList(this.words[style])) {           
                 continue;
             }
             this._updateBookmarksForWordAndStyle(document, this.words[style], style);
@@ -75,11 +75,26 @@ class InlineBookmarksCtrl {
 
     /** -- private -- */
 
+    _extensionIsBlacklisted(fileName){
+        let ignoreList = settings.extensionConfig().exceptions.file.extensions.ignore;
+        if(!ignoreList || ignoreList.length === 0) return false;
+        return this._commaSeparatedStringToUniqueList(ignoreList).some(ext => fileName.endsWith(ext.trim()));
+    }
+
+    _wordIsOnIgnoreList(word){
+        let ignoreList = settings.extensionConfig().exceptions.words.ignore;
+        return this._commaSeparatedStringToUniqueList(ignoreList).some(ignoreWord => word.startsWith(ignoreWord.trim()));      
+    }
+
+    _commaSeparatedStringToUniqueList(s){
+        if(!s) return [];
+        return [...new Set(s.trim().split(',').map(e => e.trim()).filter(e => e.length))]
+    }
+
     async _decorateWords(editor, words, style){
         const decoStyle = this.styles[style] || this.styles['default'];
 
         let locations = this._findWords(editor.document, words)
-
         editor.setDecorations(decoStyle, locations);  // set decorations
 
         if(locations.length)
@@ -142,35 +157,86 @@ class InlineBookmarksCtrl {
     }
 
     _reLoadWords(){
-        return settings.extensionConfig().words;
+        let defaultWords = {  // style: arr(regexWords)
+            "blue": this._commaSeparatedStringToUniqueList(settings.extensionConfig().default.words.blue),
+            "purple": this._commaSeparatedStringToUniqueList(settings.extensionConfig().default.words.purple),
+            "green": this._commaSeparatedStringToUniqueList(settings.extensionConfig().default.words.green),
+            "red": this._commaSeparatedStringToUniqueList(settings.extensionConfig().default.words.red)
+        }
+
+        return {...defaultWords, ...settings.extensionConfig().expert.custom.words.mapping};
     }
 
     _reLoadDecorations() {
-        let styles = {}
+        let styles = {
+            "default": vscode.window.createTextEditorDecorationType({
+                "gutterIconPath": this.context.asAbsolutePath("images/bookmark-blue.svg"),
+                "overviewRulerColor": "rgba(21, 126, 251, 0.7)",
+                "light": {
+                    "fontWeight": "bold"
+                },
+                "dark": {
+                    "color": "Chocolate"
+                }
+            }),
+            "red": vscode.window.createTextEditorDecorationType({
+                "gutterIconPath": this.context.asAbsolutePath("images/bookmark-red.svg"),
+                "light": {
+                    "fontWeight": "bold"
+                },
+                "dark": {
+                    "color": "Chocolate"
+                }
+            }),
+            "blue": vscode.window.createTextEditorDecorationType({
+                "gutterIconPath": this.context.asAbsolutePath("images/bookmark-blue.svg"),
+                "light": {
+                    "fontWeight": "bold"
+                },
+                "dark": {
+                    "color": "Chocolate"
+                }
+            }),
+            "green": vscode.window.createTextEditorDecorationType({
+                "gutterIconPath": this.context.asAbsolutePath("images/bookmark-green.svg"),
+                "light": {
+                    "fontWeight": "bold"
+                },
+                "dark": {
+                    "color": "Chocolate"
+                }
+            }),
+            "purple": vscode.window.createTextEditorDecorationType({
+                "gutterIconPath": this.context.asAbsolutePath("images/bookmark-purple.svg"),
+                "light": {
+                    "fontWeight": "bold"
+                },
+                "dark": {
+                    "color": "Chocolate"
+                }
+            })
+        };
 
-        for (var decoId in settings.extensionConfig().styles) {
+        let customStyles = settings.extensionConfig().expert.custom.styles;
 
+        for (var decoId in customStyles) {
 
-            if (!settings.extensionConfig().styles.hasOwnProperty(decoId)) {           
+            if (!customStyles.hasOwnProperty(decoId)) {           
                 continue;
             }
 
-            let decoOptions = { ...settings.extensionConfig().styles[decoId]}
-
+            let decoOptions = { ...customStyles[decoId]}
         
             //fix path
             decoOptions.gutterIconPath = this.context.asAbsolutePath(decoOptions.gutterIconPath);
-        
             //overview
             if(decoOptions.overviewRulerColor){
                 decoOptions.overviewRulerLane = vscode.OverviewRulerLane.Full;
             }
-            
             //background color
             if (decoOptions.backgroundColor) {
                 decoOptions.isWholeLine = true;
             }
-        
             styles[decoId] = vscode.window.createTextEditorDecorationType(decoOptions);
         }
 

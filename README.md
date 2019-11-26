@@ -4,9 +4,6 @@
 </sup><br/><br/>
 
 
-<img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69008976-f4f5bb00-0950-11ea-8a95-ff6a3b1e5207.png">
-
-
 # Inline Bookmarks   
 
 <img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69009240-d5ac5d00-0953-11ea-811e-f7fded9c6ecb.png">
@@ -24,20 +21,40 @@ It's really useful to keep track of development notes and todos as well as log a
 
 #### Customizable Inline Bookmarks
 
-* the following default tags are provided (the tags are tailored towards code auditing but can be customized):
-  * `@todo` - General ToDo remark
-  * `@note` - General remark
-  * `@audit` - General bookmark for potential issues.
-  * `@audit-info` - General bookmark for information to be noted for later use.
-  * `@audit-ok` - Non-Issue bookmark.
-  * `@audit-issue` - Confirmed and filed issue.
+* the following bookmark styles are provided by default:
 
-* decoration styles can be customized with the extension settings.
-  * styles can be named. in the example below they are named: `default`, `red`, `blue`, `green`, `purple`.
-  * The `gutterIconPath` is not customizable right now. You can only use the bookmark images referenced below.
+    <img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69679883-91366500-10a9-11ea-8e36-ba3e799127b3.png">
+
+**Note:** Additional custom styles can be added in the extension settings. See [Expert](#expert) options.
+
+* the following default trigger words/tags are configured by default:
+  * `@todo` - (blue) General ToDo remark.
+  * `@note` - (blue) General remark.
+  * `@audit` - (red) General bookmark for potential issues.
+  * `@audit-info` - (blue) General bookmark for information to be noted for later use.
+  * `@audit-ok` - (green) Add a note that a specific line is not an issue even though it might look like.
+  * `@audit-issue` - (purple) Reference a code location an issue was filed for.
+
+**Note:** Words can be fully customized in: `code → preferences → Extensions: Inline Bookmarks`.
+
+<img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69680065-1457bb00-10aa-11ea-853b-c36fdfc68b96.png">
+
+## Expert
+
+* go to the extension settings: `code → preferences → Extensions: Inline Bookmarks`
+* Exceptions
+  * configure file-extensions to be exempt from decoration
+  * configure temporary overrides for trigger words to be exempt from decoration (matches begin of word)
+* Custom Styles
+  * be aware that existing styles can be overridden
+  * The `gutterIconPath` is not customizable right now. You can only use the images provided with the extension right now: `images/bookmark-{red,green,blue,purple}.svg`. See example below.
+* Custom word mappings
+  * You can assign multiple regex trigger words to a decoration style. See example below.
+
+**Example style definition:** (all vscode style properties are allowed)
 
 ```json
-"inline-bookmarks.styles": {
+"inline-bookmarks.expert.custom.styles": {
     "default": {
         "gutterIconPath": "images/bookmark-blue.svg",
         "overviewRulerColor": "rgba(21, 126, 251, 0.7)",
@@ -87,11 +104,10 @@ It's really useful to keep track of development notes and todos as well as log a
 }
 ```
 
-* tags can be fully customized with the extension settings. 
-  * You can assign multiple regex trigger words to a decoration style (see previous bullet point)
+**Example word mapping:** (all vscode style properties are allowed)
 
 ```json
-"inline-bookmarks.words": {
+"inline-bookmarks.expert.custom.words.mapping": {
     "blue": ["@audit\\-info[ \\t\\n]"],
     "purple": ["@audit\\-issue[ \t\\n]"],
     "green": ["@audit\\-ok[ \\t\\n]"],
@@ -106,9 +122,20 @@ It's really useful to keep track of development notes and todos as well as log a
 * click on a bookmark to jump to its location
 * click refresh to re-scan loaded files for changes
  
-
 ## Release Notes
 
 see [CHANGELOG](./CHANGELOG.md)
+
+## 0.0.7
+- new: configuration options
+  - disable decorations
+  - blacklist files-extensions that should not be decorated
+  - blacklist words that should be temporarily ignored from decoration
+  - hard-code default styles but allow to override them in the configuration
+  - expose trigger words for default styles and allow to customize them
+  - allow users to configure new styles and map trigger words to them
+- fix: bokmarks view: did not auto-refresh on load
+- fix: pattern for audit-issue
+- fix: clear empty bookmarks
 
 -----------------------------------------------------------------------------------------------------------

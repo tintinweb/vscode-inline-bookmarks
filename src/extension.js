@@ -7,8 +7,9 @@
  * */
 /** imports */
 const vscode = require('vscode');
-
+const settings = require('./settings')
 const {InlineBookmarksCtrl, InlineBookmarkTreeDataProvider} = require('./features/inlineBookmarks');
+
 
 function editorJumptoRange(range) {
 
@@ -52,6 +53,8 @@ function onActivate(context) {
         })
     );
     /** module init */
+    auditTags.commands.refresh();
+    treeDataProvider.refresh();
     onDidChange();
 
     /** event setup */
@@ -82,14 +85,18 @@ function onActivate(context) {
     /************* handler */
     async function onDidChange(editor, event) {
         return new Promise((resolve,reject) => {
-            auditTags.decorate(editor);
+            if(settings.extensionConfig().enable){
+                auditTags.decorate(editor);
+            }
             resolve();
         });
     }
-    
+
     async function onDidSave(editor) {
         return new Promise((resolve,reject) => {
-            auditTags.decorate(editor);
+            if(settings.extensionConfig().enable){
+                auditTags.decorate(editor);
+            }
             treeDataProvider.refresh();
             resolve();
         });

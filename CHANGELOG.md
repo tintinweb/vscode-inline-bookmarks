@@ -1,5 +1,17 @@
 # Change Log
 
+## 0.0.7
+- new: configuration options
+  - disable decorations
+  - blacklist files-extensions that should not be decorated
+  - blacklist words that should be temporarily ignored from decoration
+  - hard-code default styles but allow to override them in the configuration
+  - expose trigger words for default styles and allow to customize them
+  - allow users to configure new styles and map trigger words to them
+- fix: bokmarks view: did not auto-refresh on load
+- fix: pattern for audit-issue
+- fix: clear empty bookmarks
+
 ## 0.0.6
 - fix: "rejected promise not handled ..."
 

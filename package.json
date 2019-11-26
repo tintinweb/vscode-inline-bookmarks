@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable inline Bookmarks",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "keywords": [
         "bookmark",
         "bookmarks",
@@ -74,72 +74,61 @@
             "type": "object",
             "title": "Inline Bookmarks",
             "properties": {
-                "inline-bookmarks.styles": {
-                    "type": "object",
-                    "default": {
-                        "default": {
-                            "gutterIconPath": "images/bookmark-blue.svg",
-                            "overviewRulerColor": "rgba(21, 126, 251, 0.7)",
-                            "light": {
-                                "fontWeight": "bold"
-                            },
-                            "dark": {
-                                "color": "Chocolate"
-                            }
-                        },
-                        "red": {
-                            "gutterIconPath": "images/bookmark-red.svg",
-                            "light": {
-                                "fontWeight": "bold"
-                            },
-                            "dark": {
-                                "color": "Chocolate"
-                            }
-                        },
-                        "blue": {
-                            "gutterIconPath": "images/bookmark-blue.svg",
-                            "light": {
-                                "fontWeight": "bold"
-                            },
-                            "dark": {
-                                "color": "Chocolate"
-                            }
-                        },
-                        "green": {
-                            "gutterIconPath": "images/bookmark-green.svg",
-                            "light": {
-                                "fontWeight": "bold"
-                            },
-                            "dark": {
-                                "color": "Chocolate"
-                            }
-                        },
-                        "purple": {
-                            "gutterIconPath": "images/bookmark-purple.svg",
-                            "light": {
-                                "fontWeight": "bold"
-                            },
-                            "dark": {
-                                "color": "Chocolate"
-                            }
-                        }
-                    },
-                    "description": "Specify Decoration Profiles",
-                    "properties": { 
-                    }
+                "inline-bookmarks.enable": {
+                    "category": "general",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable/Disable the extension."
                 },
-                "inline-bookmarks.words": {
+                "inline-bookmarks.default.words.red": {
+                    "category": "trigger words",
+                    "type": "string",
+                    "default": "@audit[ \\t\\n]",
+                    "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `red`."
+                },
+                "inline-bookmarks.default.words.green": {
+                    "category": "trigger words",
+                    "type": "string",
+                    "default": "@audit\\-ok[ \\t\\n]",
+                    "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `green`."
+                },
+                "inline-bookmarks.default.words.blue": {
+                    "category": "trigger words",
+                    "type": "string",
+                    "default": "@audit\\-info[ \\t\\n], @todo[ \\t\\n], @note[ \\t\\n]",
+                    "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `blue`."
+                },
+                "inline-bookmarks.default.words.purple": {
+                    "category": "trigger words",
+                    "type": "string",
+                    "default": "@audit\\-issue[ \\t\\n]",
+                    "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `purple`."
+                },
+                "inline-bookmarks.exceptions.words.ignore": {
+                    "category": "exceptions",
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "A comma-separated list of tags/trigger words (`inline-bookmarks.words`) that will not be decorated."
+                },
+                "inline-bookmarks.exceptions.file.extensions.ignore": {
+                    "category": "exceptions",
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "A comma-separated list of file extensions to ignore (e.g. .java)."
+                },
+                "inline-bookmarks.expert.custom.styles": {
+                    "category": "expert",
                     "type": "object",
-                    "default": {
-                        "blue": ["@audit\\-info[ \\t\\n]", "@todo[ \\t\\n]", "@note[ \\t\\n]"],
-                        "purple": ["@audit\\-issue[ \t\\n]"],
-                        "green": ["@audit\\-ok[ \\t\\n]"],
-                        "red": ["@audit[ \\t\\n]"]
-                    },
+                    "default": {},
+                    "description": "Specify Custom Decoration Profiles",
+                    "properties": {}
+                },
+                "inline-bookmarks.expert.custom.words.mapping": {
+                    "category": "expert",
+                    "type": "object",
+                    "default": {},
                     "description": "Assigns tags/trigger words to decoration profiles",
-                    "properties": {
-                        
-                    }
+                    "properties": {}
                 }
             }
         }
