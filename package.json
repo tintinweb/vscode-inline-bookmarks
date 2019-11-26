@@ -95,7 +95,7 @@
                 "inline-bookmarks.default.words.blue": {
                     "category": "trigger words",
                     "type": "string",
-                    "default": "@audit\\-info[ \\t\\n], @todo[ \\t\\n], @note[ \\t\\n]",
+                    "default": "@audit\\-info[ \\t\\n], @todo[ \\t\\n], @note[ \\t\\n], @remind[ \\t\\n], @follow-up[ \\t\\n]",
                     "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `blue`."
                 },
                 "inline-bookmarks.default.words.purple": {

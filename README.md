@@ -6,7 +6,7 @@
 
 # Inline Bookmarks   
 
-<img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69009240-d5ac5d00-0953-11ea-811e-f7fded9c6ecb.png">
+<img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69679883-91366500-10a9-11ea-8e36-ba3e799127b3.png">
 
 Code navigation for inline bookmarks made easy.
 
@@ -16,12 +16,14 @@ It's really useful to keep track of development notes and todos as well as log a
 
 ## Tour
 
-![vscode-inline-bookmarks](https://user-images.githubusercontent.com/2865694/69009319-7864db80-0954-11ea-8e31-c56edb7f3813.gif)
+<img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69009240-d5ac5d00-0953-11ea-811e-f7fded9c6ecb.png">
+
+![vscode-inline-bookmarks-2](https://user-images.githubusercontent.com/2865694/69681775-67803c80-10af-11ea-8e99-c79caf7781a5.gif)
 
 
 #### Customizable Inline Bookmarks
 
-* the following bookmark styles are provided by default:
+* the following bookmark styles are provided by default: red, green, blue, purple
 
     <img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69679883-91366500-10a9-11ea-8e36-ba3e799127b3.png">
 
@@ -30,6 +32,8 @@ It's really useful to keep track of development notes and todos as well as log a
 * the following default trigger words/tags are configured by default:
   * `@todo` - (blue) General ToDo remark.
   * `@note` - (blue) General remark.
+  * `@remind` - (blue) General remark.
+  * `@follow-up` - (blue) General remark.
   * `@audit` - (red) General bookmark for potential issues.
   * `@audit-info` - (blue) General bookmark for information to be noted for later use.
   * `@audit-ok` - (green) Add a note that a specific line is not an issue even though it might look like.
