@@ -295,7 +295,8 @@ class InlineBookmarksDataModel {
         let fileBookmarks = Object.keys(this.controller.bookmarks);
 
         if(settings.extensionConfig().view.showCurrentFileOnly){
-            fileBookmarks = fileBookmarks.filter(v =>  vscode.Uri.parse(v).path === vscode.window.activeTextEditor.document.uri.path)
+            let visibleEditorUris = vscode.window.visibleTextEditors.map(te => te._documentData._uri.path)
+            fileBookmarks = fileBookmarks.filter(v => visibleEditorUris.includes(vscode.Uri.parse(v).path))
         }
 
         return fileBookmarks.sort().map(v => {

@@ -53,8 +53,8 @@ function onActivate(context) {
         })
     );
     context.subscriptions.push(
-        vscode.commands.registerCommand("inlineBookmarks.toggleShowCurrentFileOnly", () => {
-            settings.extensionConfig().update("view.showCurrentFileOnly", !settings.extensionConfig().view.showCurrentFileOnly);
+        vscode.commands.registerCommand("inlineBookmarks.toggleShowVisibleFilesOnly", () => {
+            settings.extensionConfig().update("view.showVisibleFilesOnly", !settings.extensionConfig().view.showVisibleFilesOnly);
             auditTags.commands.refresh();
             treeDataProvider.refresh();
         })

@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable inline Bookmarks",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "keywords": [
         "bookmark",
         "bookmarks",
@@ -53,7 +53,7 @@
                 }
             },
             {
-                "command": "inlineBookmarks.toggleShowCurrentFileOnly",
+                "command": "inlineBookmarks.toggleShowVisibleFilesOnly",
                 "title": "Toggle Bookmarks for Current File / All Files",
                 "category": "InlineBookmarks",
                 "icon": {
@@ -73,7 +73,7 @@
         "menus": {
             "view/title": [
                 {
-                    "command": "inlineBookmarks.toggleShowCurrentFileOnly",
+                    "command": "inlineBookmarks.toggleShowVisibleFilesOnly",
                     "when": "view == inlineBookmarksExplorer",
                     "group": "navigation"
                 },
@@ -94,11 +94,11 @@
                     "default": true,
                     "description": "Enable/Disable the extension."
                 },
-                "inline-bookmarks.view.showCurrentFileOnly": {
+                "inline-bookmarks.view.showVisibleFilesOnly": {
                     "category": "general",
                     "type": "boolean",
                     "default": false,
-                    "description": "Show bookmarks for current file only."
+                    "description": "Show bookmarks for visible editors/files only."
                 },
                 "inline-bookmarks.default.words.red": {
                     "category": "trigger words",
