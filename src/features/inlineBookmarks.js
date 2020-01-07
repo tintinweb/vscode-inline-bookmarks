@@ -292,7 +292,13 @@ class InlineBookmarksDataModel {
     }
 
     getRoot(){  /** returns element */
-        return Object.keys(this.controller.bookmarks).sort().map(v => {
+        let fileBookmarks = Object.keys(this.controller.bookmarks);
+
+        if(settings.extensionConfig().view.showCurrentFileOnly){
+            fileBookmarks = fileBookmarks.filter(v =>  vscode.Uri.parse(v).path === vscode.window.activeTextEditor.document.uri.path)
+        }
+
+        return fileBookmarks.sort().map(v => {
             return { 
                 resource: vscode.Uri.parse(v), 
                 tooltip: v,

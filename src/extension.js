@@ -52,6 +52,13 @@ function onActivate(context) {
             treeDataProvider.refresh();
         })
     );
+    context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.toggleShowCurrentFileOnly", () => {
+            settings.extensionConfig().update("view.showCurrentFileOnly", !settings.extensionConfig().view.showCurrentFileOnly);
+            auditTags.commands.refresh();
+            treeDataProvider.refresh();
+        })
+    );
     /** module init */
     auditTags.commands.refresh();
     treeDataProvider.refresh();

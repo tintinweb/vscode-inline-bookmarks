@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable inline Bookmarks",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "keywords": [
         "bookmark",
         "bookmarks",
@@ -45,11 +45,20 @@
             },
             {
                 "command": "inlineBookmarks.refresh",
-                "title": "rescan workspace",
+                "title": "Rescan Workspace",
                 "category": "InlineBookmarks",
                 "icon": {
                     "light": "images/refresh-light.svg",
                     "dark": "images/refresh-dark.svg"
+                }
+            },
+            {
+                "command": "inlineBookmarks.toggleShowCurrentFileOnly",
+                "title": "Toggle Bookmarks for Current File / All Files",
+                "category": "InlineBookmarks",
+                "icon": {
+                    "light": "images/toggleFiles-light.svg",
+                    "dark": "images/toggleFiles-dark.svg"
                 }
             }
         ],
@@ -63,6 +72,11 @@
         },
         "menus": {
             "view/title": [
+                {
+                    "command": "inlineBookmarks.toggleShowCurrentFileOnly",
+                    "when": "view == inlineBookmarksExplorer",
+                    "group": "navigation"
+                },
                 {
                     "command": "inlineBookmarks.refresh",
                     "when": "view == inlineBookmarksExplorer",
@@ -79,6 +93,12 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Enable/Disable the extension."
+                },
+                "inline-bookmarks.view.showCurrentFileOnly": {
+                    "category": "general",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show bookmarks for current file only."
                 },
                 "inline-bookmarks.default.words.red": {
                     "category": "trigger words",
