@@ -54,12 +54,15 @@
             },
             {
                 "command": "inlineBookmarks.toggleShowVisibleFilesOnly",
-                "title": "Toggle Bookmarks for Current File / All Files",
+                "title": "Toggle: Show Bookmarks for Visible Editors / All Files",
                 "category": "InlineBookmarks",
-                "icon": {
-                    "light": "images/toggleFiles-light.svg",
-                    "dark": "images/toggleFiles-dark.svg"
-                }
+                "icon": "images/toggle-files.svg"
+            },
+            {
+                "command": "inlineBookmarks.toggleViewKeepFilesExpanded",
+                "title": "Toggle: Keep File View expanded",
+                "category": "InlineBookmarks",
+                "icon": "images/toggle-expanded.svg"
             }
         ],
         "views": {
@@ -95,10 +98,16 @@
                     "description": "Enable/Disable the extension."
                 },
                 "inline-bookmarks.view.showVisibleFilesOnly": {
-                    "category": "general",
+                    "category": "view",
                     "type": "boolean",
                     "default": false,
                     "description": "Show bookmarks for visible editors/files only."
+                },
+                "inline-bookmarks.view.expanded": {
+                    "category": "view",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Keep File View expanded otherwise collapsed."
                 },
                 "inline-bookmarks.default.words.red": {
                     "category": "trigger words",

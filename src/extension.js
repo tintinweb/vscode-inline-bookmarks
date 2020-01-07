@@ -59,6 +59,11 @@ function onActivate(context) {
             treeDataProvider.refresh();
         })
     );
+    context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.toggleViewKeepFilesExpanded", () => {
+            settings.extensionConfig().update("view.expanded", !settings.extensionConfig().view.expanded);
+        })
+    );
     /** module init */
     auditTags.commands.refresh();
     treeDataProvider.refresh();
@@ -98,7 +103,6 @@ function onActivate(context) {
             resolve();
         });
     }
-
     async function onDidSave(editor) {
         return new Promise((resolve,reject) => {
             if(settings.extensionConfig().enable){
@@ -108,7 +112,6 @@ function onActivate(context) {
             resolve();
         });
     }
-
 }
 
 /* exports */

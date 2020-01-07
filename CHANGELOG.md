@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.0.9
+
+- changed: when set, show all visible editor files bookmarks in bookmarks view
+- new: allow to define bookmark view behavior as initially collapsed (default) or expanded. 
+  - Code -> Preferences -> Settings `inline-bookmarks.view.expanded`
+  - Or, run command: `Toggle: Keep File View expanded` (`inlineBookmarks.toggleViewKeepFilesExpanded`)
+
 ## 0.0.8
 - new: toggle Inline Bookmark view to only show bookmarks of active file vs. all files
   - by default shows all files

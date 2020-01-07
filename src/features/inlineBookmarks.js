@@ -294,9 +294,9 @@ class InlineBookmarksDataModel {
     getRoot(){  /** returns element */
         let fileBookmarks = Object.keys(this.controller.bookmarks);
 
-        if(settings.extensionConfig().view.showCurrentFileOnly){
-            let visibleEditorUris = vscode.window.visibleTextEditors.map(te => te._documentData._uri.path)
-            fileBookmarks = fileBookmarks.filter(v => visibleEditorUris.includes(vscode.Uri.parse(v).path))
+        if(settings.extensionConfig().view.showVisibleFilesOnly){
+            let visibleEditorUris = vscode.window.visibleTextEditors.map(te => te._documentData._uri.path);
+            fileBookmarks = fileBookmarks.filter(v => visibleEditorUris.includes(vscode.Uri.parse(v).path));
         }
 
         return fileBookmarks.sort().map(v => {
@@ -366,7 +366,7 @@ class InlineBookmarkTreeDataProvider {
             resourceUri: element.resource,
             label: element.label,
             iconPath: element.iconPath,
-            collapsibleState: element.type==NodeType.LOCATION ? 0 : vscode.TreeItemCollapsibleState.Collapsed,
+            collapsibleState: element.type == NodeType.LOCATION ? 0 : settings.extensionConfig().view.expanded ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.Collapsed,
             command: element.type == NodeType.LOCATION && element.location ? {
                 command: 'inlineBookmarks.jumpToRange',
                 arguments: [element.location.uri, element.location.range],
