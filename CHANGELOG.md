@@ -2,6 +2,7 @@
 
 ## 0.0.8
 - new: toggle Inline Bookmark view to only show bookmarks of active file vs. all files
+  - by default shows all files
 
 ## 0.0.7
 - new: configuration options

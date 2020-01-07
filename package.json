@@ -97,7 +97,7 @@
                 "inline-bookmarks.view.showCurrentFileOnly": {
                     "category": "general",
                     "type": "boolean",
-                    "default": true,
+                    "default": false,
                     "description": "Show bookmarks for current file only."
                 },
                 "inline-bookmarks.default.words.red": {

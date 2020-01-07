@@ -127,7 +127,7 @@ The extension can be used to keep track of development notes and todo's, for doc
 #### Bookmarks View
 
 * click on a bookmark to jump to its location
-* click refresh to re-scan loaded files for changes
+* click refresh to re-scan loaded files for changes //@audit
  
 ## Release Notes
 
@@ -136,6 +136,7 @@ see [CHANGELOG](./CHANGELOG.md)
 ## 0.0.8
 
 - new: toggle Inline Bookmark view to only show bookmarks of active file vs. all files
+  - by default shows all files
 
 ## 0.0.7
 - new: configuration options
