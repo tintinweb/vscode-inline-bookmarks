@@ -133,6 +133,10 @@ The extension can be used to keep track of development notes and todo's, for doc
 
 see [CHANGELOG](./CHANGELOG.md)
 
+## 0.0.8
+
+- new: toggle Inline Bookmark view to only show bookmarks of active file vs. all files
+
 ## 0.0.7
 - new: configuration options
   - disable decorations
