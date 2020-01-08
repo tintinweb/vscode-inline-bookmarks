@@ -133,6 +133,10 @@ The extension can be used to keep track of development notes and todo's, for doc
 
 see [CHANGELOG](./CHANGELOG.md)
 
+## 0.0.11
+
+- fixed: icon not shown in bookmark view on Windows
+
 ## 0.0.10
 
 - fixed: errors due to assignment to const

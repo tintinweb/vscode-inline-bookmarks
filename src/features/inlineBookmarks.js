@@ -328,7 +328,7 @@ class InlineBookmarksDataModel {
                             type: NodeType.LOCATION, 
                             category: cat,
                             parent:element,
-                            iconPath: vscode.Uri.parse(this.controller.context.asAbsolutePath(path.join("images",`bookmark-${cat}.svg`)))
+                            iconPath: vscode.Uri.file(this.controller.context.asAbsolutePath(path.join("images",`bookmark-${cat}.svg`)))
                         };
                     });
                 }).flat(1);
