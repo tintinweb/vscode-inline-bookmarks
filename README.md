@@ -159,7 +159,7 @@ see [CHANGELOG](./CHANGELOG.md)
   - hard-code default styles but allow to override them in the configuration
   - expose trigger words for default styles and allow to customize them
   - allow users to configure new styles and map trigger words to them
-- fix: bokmarks view: did not auto-refresh on load
+- fix: bookmarks view: did not auto-refresh on load
 - fix: pattern for audit-issue
 - fix: clear empty bookmarks
 

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 /** 
  * @author github.com/tintinweb
  * @license MIT
@@ -7,7 +7,7 @@
  * */
 /** imports */
 const vscode = require('vscode');
-const settings = require('./settings')
+const settings = require('./settings');
 const {InlineBookmarksCtrl, InlineBookmarkTreeDataProvider} = require('./features/inlineBookmarks');
 
 

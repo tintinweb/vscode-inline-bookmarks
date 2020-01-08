@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 /** 
  * @author github.com/tintinweb
  * @license MIT
@@ -8,7 +8,8 @@
 /** imports */
 const vscode = require('vscode');
 const fs = require("fs");
-const settings = require('../settings')
+const path = require("path");
+const settings = require('../settings');
 
 class Commands {
     constructor(controller){
@@ -18,7 +19,7 @@ class Commands {
     refresh() {
         Object.keys(this.controller.bookmarks).forEach(uri => {
             vscode.workspace.openTextDocument(vscode.Uri.parse(uri)).then(document => {
-                this.controller.updateBookmarks(document)
+                this.controller.updateBookmarks(document);
             });
         }, this);
     }
@@ -46,7 +47,7 @@ class InlineBookmarksCtrl {
     async decorate(editor){
         if (!editor || !editor.document || editor.document.fileName.startsWith("extension-output-") || this._extensionIsBlacklisted(editor.document.fileName)) return;
         
-        this._clearBookmarksOfFile(editor.document)
+        this._clearBookmarksOfFile(editor.document);
 
         for (var style in this.words) {
             if (!this.words.hasOwnProperty(style) || this.words[style].length == 0 || this._wordIsOnIgnoreList(this.words[style])) {           
@@ -61,7 +62,7 @@ class InlineBookmarksCtrl {
     async updateBookmarks(document){
         if (!document || document.fileName.startsWith("extension-output-") || this._extensionIsBlacklisted(document.fileName)) return;
 
-        this._clearBookmarksOfFile(document)
+        this._clearBookmarksOfFile(document);
 
         for (var style in this.words) {
             if (!this.words.hasOwnProperty(style) || this.words[style].length == 0 || this._wordIsOnIgnoreList(this.words[style])) {           
@@ -88,17 +89,17 @@ class InlineBookmarksCtrl {
 
     _commaSeparatedStringToUniqueList(s){
         if(!s) return [];
-        return [...new Set(s.trim().split(',').map(e => e.trim()).filter(e => e.length))]
+        return [...new Set(s.trim().split(',').map(e => e.trim()).filter(e => e.length))];
     }
 
     async _decorateWords(editor, words, style){
         const decoStyle = this.styles[style] || this.styles['default'];
 
-        let locations = this._findWords(editor.document, words)
+        let locations = this._findWords(editor.document, words);
         editor.setDecorations(decoStyle, locations);  // set decorations
 
         if(locations.length)
-            this._addBookmark(editor.document, style, locations)
+            this._addBookmark(editor.document, style, locations);
     }
 
     async _updateBookmarksForWordAndStyle(document, words, style){
@@ -137,21 +138,21 @@ class InlineBookmarksCtrl {
     }
 
     _clearBookmarksOfFile(document) {
-        let filename = document.uri
+        let filename = document.uri;
         if(!this.bookmarks.hasOwnProperty(filename)) return;
         delete this.bookmarks[filename];
     }
 
     _clearBookmarksOfFileAndStyle(document, style){
-        let filename = document.uri
+        let filename = document.uri;
         if(!this.bookmarks.hasOwnProperty(filename)) return;
         delete this.bookmarks[filename][style];
     }
 
     _addBookmark(document, style, locations){
-        let filename = document.uri
+        let filename = document.uri;
         if(!this.bookmarks.hasOwnProperty(filename)){
-            this.bookmarks[filename] = {}
+            this.bookmarks[filename] = {};
         }
         this.bookmarks[filename][style] = locations;
     }
@@ -162,7 +163,7 @@ class InlineBookmarksCtrl {
             "purple": this._commaSeparatedStringToUniqueList(settings.extensionConfig().default.words.purple),
             "green": this._commaSeparatedStringToUniqueList(settings.extensionConfig().default.words.green),
             "red": this._commaSeparatedStringToUniqueList(settings.extensionConfig().default.words.red)
-        }
+        };
 
         return {...defaultWords, ...settings.extensionConfig().expert.custom.words.mapping};
     }
@@ -225,7 +226,7 @@ class InlineBookmarksCtrl {
                 continue;
             }
 
-            let decoOptions = { ...customStyles[decoId]}
+            let decoOptions = { ...customStyles[decoId]};
         
             //fix path
             decoOptions.gutterIconPath = this.context.asAbsolutePath(decoOptions.gutterIconPath);
@@ -280,7 +281,7 @@ const NodeType = {
     FILE : 1,
     CATEGORY : 2,
     LOCATION : 3
-}
+};
 
 
 class InlineBookmarksDataModel {
@@ -307,8 +308,9 @@ class InlineBookmarksDataModel {
                 type: NodeType.FILE, 
                 parent: null,
                 iconPath: vscode.ThemeIcon.File,
-                location: null }
-        })
+                location: null
+            };
+        });
     }
 
     getChildren(element){
@@ -327,7 +329,7 @@ class InlineBookmarksDataModel {
                             category: cat,
                             parent:element,
                             iconPath: vscode.Uri.parse(this.controller.context.asAbsolutePath(`images/bookmark-${cat}.svg`))
-                        }
+                        };
                     });
                 }).flat(1);
             case NodeType.CATEGORY:
@@ -357,7 +359,7 @@ class InlineBookmarkTreeDataProvider {
     }
 
     getParent(element){
-        const parent = element.resource.with({ path: dirname(element.resource.path) });
+        const parent = element.resource.with({ path: path.dirname(element.resource.path) });
         return parent.path !== '//' ? { resource: parent, isFilename: true } : null;
     }
 
@@ -386,4 +388,4 @@ class InlineBookmarkTreeDataProvider {
 module.exports = {
     InlineBookmarksCtrl:InlineBookmarksCtrl,
     InlineBookmarkTreeDataProvider:InlineBookmarkTreeDataProvider
-}
+};
