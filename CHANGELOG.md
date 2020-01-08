@@ -3,6 +3,7 @@
 ## 0.0.11
 
 - fixed: icon not shown in bookmark view on Windows
+- fixed: bookmark view does not refresh on Windows
 
 ## 0.0.10
 
