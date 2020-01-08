@@ -171,7 +171,7 @@ class InlineBookmarksCtrl {
     _reLoadDecorations() {
         let styles = {
             "default": vscode.window.createTextEditorDecorationType({
-                "gutterIconPath": this.context.asAbsolutePath("images/bookmark-blue.svg"),
+                "gutterIconPath": this.context.asAbsolutePath(path.join("images","bookmark-blue.svg")),
                 "overviewRulerColor": "rgba(21, 126, 251, 0.7)",
                 "light": {
                     "fontWeight": "bold"
@@ -181,7 +181,7 @@ class InlineBookmarksCtrl {
                 }
             }),
             "red": vscode.window.createTextEditorDecorationType({
-                "gutterIconPath": this.context.asAbsolutePath("images/bookmark-red.svg"),
+                "gutterIconPath": this.context.asAbsolutePath(path.join("images","bookmark-red.svg")),
                 "light": {
                     "fontWeight": "bold"
                 },
@@ -190,7 +190,7 @@ class InlineBookmarksCtrl {
                 }
             }),
             "blue": vscode.window.createTextEditorDecorationType({
-                "gutterIconPath": this.context.asAbsolutePath("images/bookmark-blue.svg"),
+                "gutterIconPath": this.context.asAbsolutePath(path.join("images","bookmark-blue.svg")),
                 "light": {
                     "fontWeight": "bold"
                 },
@@ -199,7 +199,7 @@ class InlineBookmarksCtrl {
                 }
             }),
             "green": vscode.window.createTextEditorDecorationType({
-                "gutterIconPath": this.context.asAbsolutePath("images/bookmark-green.svg"),
+                "gutterIconPath": this.context.asAbsolutePath(path.join("images","bookmark-green.svg")),
                 "light": {
                     "fontWeight": "bold"
                 },
@@ -208,7 +208,7 @@ class InlineBookmarksCtrl {
                 }
             }),
             "purple": vscode.window.createTextEditorDecorationType({
-                "gutterIconPath": this.context.asAbsolutePath("images/bookmark-purple.svg"),
+                "gutterIconPath": this.context.asAbsolutePath(path.join("images","bookmark-purple.svg")),
                 "light": {
                     "fontWeight": "bold"
                 },
@@ -328,7 +328,7 @@ class InlineBookmarksDataModel {
                             type: NodeType.LOCATION, 
                             category: cat,
                             parent:element,
-                            iconPath: vscode.Uri.parse(this.controller.context.asAbsolutePath(`images/bookmark-${cat}.svg`))
+                            iconPath: vscode.Uri.parse(this.controller.context.asAbsolutePath(path.join("images",`bookmark-${cat}.svg`)))
                         };
                     });
                 }).flat(1);
