@@ -105,6 +105,7 @@ function onActivate(context) {
             if(settings.extensionConfig().enable){
                 auditTags.decorate(editor);
             }
+            treeDataProvider.refresh();
             resolve();
         });
     }
