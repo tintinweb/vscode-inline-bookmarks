@@ -115,25 +115,25 @@
                 "inline-bookmarks.default.words.red": {
                     "category": "trigger words",
                     "type": "string",
-                    "default": "@audit[ \\t\\n]",
+                    "default": "@audit[ \\t\\n$]",
                     "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `red`."
                 },
                 "inline-bookmarks.default.words.green": {
                     "category": "trigger words",
                     "type": "string",
-                    "default": "@audit\\-ok[ \\t\\n]",
+                    "default": "@audit\\-ok[ \\t\\n$]",
                     "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `green`."
                 },
                 "inline-bookmarks.default.words.blue": {
                     "category": "trigger words",
                     "type": "string",
-                    "default": "@audit\\-info[ \\t\\n], @todo[ \\t\\n], @note[ \\t\\n], @remind[ \\t\\n], @follow-up[ \\t\\n]",
+                    "default": "@audit\\-info[ \\t\\n$], @todo[ \\t\\n$], @note[ \\t\\n$], @remind[ \\t\\n$], @follow-up[ \\t\\n$]",
                     "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `blue`."
                 },
                 "inline-bookmarks.default.words.purple": {
                     "category": "trigger words",
                     "type": "string",
-                    "default": "@audit\\-issue[ \\t\\n]",
+                    "default": "@audit\\-issue[ \\t\\n$]",
                     "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `purple`."
                 },
                 "inline-bookmarks.exceptions.words.ignore": {
