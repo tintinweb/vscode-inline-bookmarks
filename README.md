@@ -133,6 +133,12 @@ The extension can be used to keep track of development notes and todo's, for doc
 
 see [CHANGELOG](./CHANGELOG.md)
 
+## 0.0.10
+
+- fixed: errors due to assignment to const
+- added: dark theme icons
+- fixed: make clear that the refresh button only reloads known bookmarks and does not scan all files in the workspace
+
 ## 0.0.9
 
 - changed: when set, show all visible editor files bookmarks in bookmarks view

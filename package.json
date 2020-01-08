@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable inline Bookmarks",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "keywords": [
         "bookmark",
         "bookmarks",
@@ -45,7 +45,7 @@
             },
             {
                 "command": "inlineBookmarks.refresh",
-                "title": "Rescan Workspace",
+                "title": "Refresh loaded bookmarks",
                 "category": "InlineBookmarks",
                 "icon": {
                     "light": "images/refresh-light.svg",
