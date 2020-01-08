@@ -28,7 +28,7 @@ function onActivate(context) {
     const auditTags = new InlineBookmarksCtrl(context);
     const treeDataProvider = new InlineBookmarkTreeDataProvider(auditTags);
 
-    const activeEditor = vscode.window.activeTextEditor;
+    var activeEditor = vscode.window.activeTextEditor;
     if (!activeEditor || !activeEditor.document) return;
 
     /** register views */
@@ -94,6 +94,11 @@ function onActivate(context) {
         onDidSave(vscode.window.activeTextEditor);  
     }, null, context.subscriptions);
 
+    /****** OnClose */
+    vscode.workspace.onDidCloseTextDocument(document => {
+        onDidSave();  
+    }, null, context.subscriptions);
+
     /************* handler */
     async function onDidChange(editor, event) {
         return new Promise((resolve,reject) => {
@@ -105,7 +110,7 @@ function onActivate(context) {
     }
     async function onDidSave(editor) {
         return new Promise((resolve,reject) => {
-            if(settings.extensionConfig().enable){
+            if(editor && settings.extensionConfig().enable){
                 auditTags.decorate(editor);
             }
             treeDataProvider.refresh();

@@ -56,7 +56,10 @@
                 "command": "inlineBookmarks.toggleShowVisibleFilesOnly",
                 "title": "Toggle: Show Bookmarks for Visible Editors / All Files",
                 "category": "InlineBookmarks",
-                "icon": "images/toggle-files.svg"
+                "icon": {
+                    "light": "images/toggle-files-light.svg",
+                    "dark": "images/toggle-files-dark.svg"
+                }
             },
             {
                 "command": "inlineBookmarks.toggleViewKeepFilesExpanded",
