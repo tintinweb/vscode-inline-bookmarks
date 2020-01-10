@@ -133,6 +133,10 @@ The extension can be used to keep track of development notes and todo's, for doc
 
 see [CHANGELOG](./CHANGELOG.md)
 
+## 0.0.12
+
+- new: sync the bookmarks view with the editor scroll action (centered)
+
 ## 0.0.11
 
 - fixed: icon not shown in bookmark view on Windows

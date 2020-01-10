@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.12
+
+- new: sync the bookmarks view with the editor scroll action (centered)
+
 ## 0.0.11
 
 - fixed: icon not shown in bookmark view on Windows

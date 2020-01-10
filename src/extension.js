@@ -32,10 +32,14 @@ function onActivate(context) {
     if (!activeEditor || !activeEditor.document) return;
 
     /** register views */
+    const treeView = vscode.window.createTreeView('inlineBookmarksExplorer', { treeDataProvider });
+
+    /*
     context.subscriptions.push(
         vscode.window.registerTreeDataProvider("inlineBookmarksExplorer", treeDataProvider)
     );
-
+    */
+    
     /** register commands */
     context.subscriptions.push(
         vscode.commands.registerCommand("inlineBookmarks.jumpToRange", (documentUri, range) => {
@@ -99,6 +103,12 @@ function onActivate(context) {
         onDidSave();  
     }, null, context.subscriptions);
 
+     /****** OnScroll / OnDidChangeTextEditorVisibleRanges */
+    
+    vscode.window.onDidChangeTextEditorVisibleRanges(event /* TextEditorVisibleRangesChangeEvent */ => {
+        onDidScroll(event);
+    }, null, context.subscriptions);
+
     /************* handler */
     async function onDidChange(editor, event) {
         return new Promise((resolve,reject) => {
@@ -117,6 +127,31 @@ function onActivate(context) {
             treeDataProvider.refresh();
             resolve();
         });
+    }
+    async function onDidScroll(event){
+        if(!treeView.visible || !settings.extensionConfig().view.follow){
+            return;  // not visible, no action
+        }
+        let documentUri = event.textEditor._documentData._uri;
+        let visibleRange = event.visibleRanges;
+
+        if(visibleRange.length <= 0){
+            return;  // no visible range open
+        }
+
+        let root = treeDataProvider.getChildren().find(f => f.name == documentUri.toString());
+        if (!root){
+            return;  // file not found
+        }
+
+        //select bookmark that is closest to selection (or center of screen)
+        let focusLine = visibleRange[0].start.line + Math.abs((visibleRange[0].end.line - visibleRange[0].start.line)/2);
+
+        let focusBookmark = treeDataProvider
+            .getChildren(root)
+            .reduce( (prevs, current) => Math.abs(focusLine - current.location.range.start.line) < Math.abs(focusLine - prevs.location.range.start.line) ? current : prevs);
+
+        treeView.reveal(focusBookmark, {selected:true});
     }
 }
 
