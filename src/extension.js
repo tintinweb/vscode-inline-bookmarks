@@ -105,8 +105,8 @@ function onActivate(context) {
 
      /****** OnScroll / OnDidChangeTextEditorVisibleRanges */
     
-    vscode.window.onDidChangeTextEditorVisibleRanges(event /* TextEditorVisibleRangesChangeEvent */ => {
-        onDidScroll(event);
+    vscode.window.onDidChangeTextEditorSelection(event /* TextEditorVisibleRangesChangeEvent */ => {
+        onDidSelectionChange(event);
     }, null, context.subscriptions);
 
     /************* handler */
@@ -128,15 +128,15 @@ function onActivate(context) {
             resolve();
         });
     }
-    async function onDidScroll(event){
+    async function onDidSelectionChange(event){
         if(!treeView.visible || !settings.extensionConfig().view.follow){
             return;  // not visible, no action
         }
-        let documentUri = event.textEditor._documentData._uri;
-        let visibleRange = event.visibleRanges;
 
-        if(visibleRange.length <= 0){
-            return;  // no visible range open
+        let documentUri = event.textEditor._documentData._uri;
+
+        if(event.textEditor._visibleRanges.length <= 0 || event.selections.length <= 0){
+            return;  // no visible range open; no selection
         }
 
         let root = treeDataProvider.getChildren().find(f => f.name == documentUri.toString());
@@ -145,13 +145,13 @@ function onActivate(context) {
         }
 
         //select bookmark that is closest to selection (or center of screen)
-        let focusLine = visibleRange[0].start.line + Math.abs((visibleRange[0].end.line - visibleRange[0].start.line)/2);
+        let focusLine = event.selections[0].anchor.line;
 
         let focusBookmark = treeDataProvider
             .getChildren(root)
-            .reduce( (prevs, current) => Math.abs(focusLine - current.location.range.start.line) < Math.abs(focusLine - prevs.location.range.start.line) ? current : prevs);
+            .reduce( (prevs, current) => Math.abs(focusLine - current.location.range.start.line) <= Math.abs(focusLine - prevs.location.range.start.line) ? current : prevs);
 
-        treeView.reveal(focusBookmark, {selected:true});
+        treeView.reveal(focusBookmark, {selected:true, focus:true});
     }
 }
 
