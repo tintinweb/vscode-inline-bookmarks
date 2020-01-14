@@ -279,8 +279,7 @@ class InlineBookmarksCtrl {
 
 const NodeType = {
     FILE : 1,
-    CATEGORY : 2,
-    LOCATION : 3
+    LOCATION: 2
 };
 
 
@@ -316,7 +315,7 @@ class InlineBookmarksDataModel {
     getChildren(element){
         switch(element.type){
             case NodeType.FILE:
-                return Object.keys(this.controller.bookmarks[element.name]).map(cat => {
+                let bookmarks = Object.keys(this.controller.bookmarks[element.name]).map(cat => {
                     //all categories
                     return this.controller.bookmarks[element.name][cat].map(v => { 
                         let location = new vscode.Location(element.resource, v.range);
@@ -332,11 +331,10 @@ class InlineBookmarksDataModel {
                         };
                     });
                 }).flat(1);
-            case NodeType.CATEGORY:
-            case NodeType.LOCATION:
+
+                return bookmarks.sort((a,b) => a.location.range.start.line - b.location.range.start.line);
             break;
         }
-        
     }
 }
 
@@ -359,8 +357,7 @@ class InlineBookmarkTreeDataProvider {
     }
 
     getParent(element){
-        const parent = element.resource.with({ path: path.dirname(element.resource.path) });
-        return parent.path !== '//' ? { resource: parent, isFilename: true } : null;
+        return element.parent;
     }
 
     getTreeItem(element){
@@ -387,5 +384,6 @@ class InlineBookmarkTreeDataProvider {
 
 module.exports = {
     InlineBookmarksCtrl:InlineBookmarksCtrl,
-    InlineBookmarkTreeDataProvider:InlineBookmarkTreeDataProvider
+    InlineBookmarkTreeDataProvider:InlineBookmarkTreeDataProvider,
+    NodeType:NodeType
 };
