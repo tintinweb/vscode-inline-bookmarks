@@ -33,7 +33,11 @@
     },
     "activationEvents": [
         "*",
-        "onView:inlineBookmarksExplorer"
+        "onView:inlineBookmarksExplorer",
+        "onCommand:inlineBookmarks.jumpToRange",
+        "onCommand:inlineBookmarks.refresh",
+        "onCommand:inlineBookmarks.toggleShowVisibleFilesOnly",
+        "onCommand:inlineBookmarks.toggleViewKeepFilesExpanded"
     ],
     "main": "./src/extension.js",
     "contributes": {
@@ -115,7 +119,7 @@
                 "inline-bookmarks.view.follow": {
                     "category": "view",
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "description": "Follow bookmarks while scrolling in the editor window."
                 },
                 "inline-bookmarks.default.words.red": {
