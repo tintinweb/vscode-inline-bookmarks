@@ -103,7 +103,7 @@ function onActivate(context) {
         onDidSave();  
     }, null, context.subscriptions);
 
-     /****** OnScroll / OnDidChangeTextEditorVisibleRanges */
+     /****** onDidChangeTextEditorSelection */
     
     vscode.window.onDidChangeTextEditorSelection(event /* TextEditorVisibleRangesChangeEvent */ => {
         onDidSelectionChange(event);
