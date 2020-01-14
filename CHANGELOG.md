@@ -2,7 +2,8 @@
 
 ## 0.0.12
 
-- new: sync the bookmarks view with the editor scroll action (centered)
+- new: sync the bookmarks view with the editor click action (highlight nearest)
+- fixed: sort bookmarks view by line number
 
 ## 0.0.11
 
