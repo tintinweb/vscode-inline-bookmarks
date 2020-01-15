@@ -133,6 +133,11 @@ The extension can be used to keep track of development notes and todo's, for doc
 
 see [CHANGELOG](./CHANGELOG.md)
 
+## 0.0.13
+- allow to specify bookmarks view follow behavior: `inline-bookmarks.view.followMode`
+  - `nearest` - highlight the nearest bookmark (relative distance)
+  - `chapter` - highlight the most recent bookmark, or the bookmark that is on the current line.
+
 ## 0.0.12
 
 - new: sync the bookmarks view with the editor click action (highlight nearest)
