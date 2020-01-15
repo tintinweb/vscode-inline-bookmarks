@@ -2,8 +2,8 @@
 
 ## 0.0.13
 - allow to specify bookmarks view follow behavior: `inline-bookmarks.view.followMode`
-  - `nearest` - highlight the nearest bookmark (relative distance)
-  - `chapter` - highlight the most recent bookmark, or the bookmark that is on the current line.
+  - `nearest` - highlights the nearest bookmark (relative distance)
+  - `chapter` - highlights the most recent bookmark or the bookmark that is on the current line.
 
 ## 0.0.12
 
