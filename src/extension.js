@@ -147,9 +147,32 @@ function onActivate(context) {
         //select bookmark that is closest to selection (or center of screen)
         let focusLine = event.selections[0].anchor.line;
 
+        // FollowMode 1 (default): nearest Bookmark
+        function strategyNearestBookmark(previous, current) {
+            return Math.abs(focusLine - current.location.range.start.line) <= Math.abs(focusLine - previous.location.range.start.line) ? current : previous;
+        }
+
+        // FollowMode 2: previous Bookmark - aka chapter style selection
+        function strategyLastKnownBookmark(previous, current) {
+            // return the current bookmark if the user clicked on a bookmark line
+            // return the last known aka previous Bookmark else
+            return focusLine >= current.location.range.start.line && focusLine - current.location.range.start.line <= focusLine - previous.location.range.start.line ? current : previous; 
+        }
+
+        let followMode = strategyNearestBookmark;
+
+        switch (settings.extensionConfig().view.followMode) {
+            case "chapter":
+                followMode = strategyLastKnownBookmark;
+                break;
+            case "nearest":
+            default:
+                followMode = strategyNearestBookmark;
+        }
+
         let focusBookmark = treeDataProvider
             .getChildren(root)
-            .reduce( (prevs, current) => Math.abs(focusLine - current.location.range.start.line) <= Math.abs(focusLine - prevs.location.range.start.line) ? current : prevs);
+            .reduce( (prevs, current) => followMode(prevs, current));
 
         treeView.reveal(focusBookmark, {selected:true, focus:false});
     }

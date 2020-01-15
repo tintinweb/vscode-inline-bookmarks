@@ -120,7 +120,17 @@
                     "category": "view",
                     "type": "boolean",
                     "default": true,
-                    "description": "Follow bookmarks while scrolling in the editor window."
+                    "description": "Follow bookmarks while clicking in the editor window. Highlights nearest bookmarks in the bookmarks view. (see `view.followMode` to change the follow behavior)"
+                },
+                "inline-bookmarks.view.followMode": {
+                    "category": "view",
+                    "type": "string",
+                    "enum": [
+						"nearest",
+						"chapter"
+					],
+                    "default": "nearest",
+                    "markdownDescription": "Follow mode for highlighting bookmarks in the bookmarks view. **nearest** (Default): highlight nearest bookmark relative to the current selection. **chapter**: highlight nearest bookmark before or on the currently selected line."
                 },
                 "inline-bookmarks.default.words.red": {
                     "category": "trigger words",
