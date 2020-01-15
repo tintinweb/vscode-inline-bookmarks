@@ -151,7 +151,7 @@ function onActivate(context) {
             .getChildren(root)
             .reduce( (prevs, current) => Math.abs(focusLine - current.location.range.start.line) <= Math.abs(focusLine - prevs.location.range.start.line) ? current : prevs);
 
-        treeView.reveal(focusBookmark, {selected:true, focus:true});
+        treeView.reveal(focusBookmark, {selected:true, focus:false});
     }
 }
 
