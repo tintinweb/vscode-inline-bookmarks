@@ -127,7 +127,9 @@ The extension can be used to keep track of development notes and todo's, for doc
 #### Bookmarks View
 
 * click on a bookmark to jump to its location
-* click refresh to re-scan loaded files for changes //@audit
+* click refresh to re-scan loaded files for changes
+* toggle to only show bookmarks for visible editors
+* the bookmarks view will follow your cursor location in the editor. the follow mode can be changed with the configuration option `inline-bookmarks.view.followMode`.
  
 ## Release Notes
 
