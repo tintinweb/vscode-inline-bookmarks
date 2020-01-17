@@ -362,6 +362,7 @@ class InlineBookmarkTreeDataProvider {
 
     getTreeItem(element){
         return {
+            id: JSON.stringify(element.location),
             resourceUri: element.resource,
             label: element.label,
             iconPath: element.iconPath,

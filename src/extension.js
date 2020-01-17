@@ -32,7 +32,7 @@ function onActivate(context) {
     if (!activeEditor || !activeEditor.document) return;
 
     /** register views */
-    const treeView = vscode.window.createTreeView('inlineBookmarksExplorer', { treeDataProvider });
+    const treeView = vscode.window.createTreeView('inlineBookmarksExplorer', { treeDataProvider: treeDataProvider });
 
     /*
     context.subscriptions.push(
@@ -103,8 +103,7 @@ function onActivate(context) {
         onDidSave();  
     }, null, context.subscriptions);
 
-     /****** onDidChangeTextEditorSelection */
-    
+    /****** onDidChangeTextEditorSelection */
     vscode.window.onDidChangeTextEditorSelection(event /* TextEditorVisibleRangesChangeEvent */ => {
         onDidSelectionChange(event);
     }, null, context.subscriptions);

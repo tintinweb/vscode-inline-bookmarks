@@ -135,6 +135,9 @@ The extension can be used to keep track of development notes and todo's, for doc
 
 see [CHANGELOG](./CHANGELOG.md)
 
+## 0.0.14
+- fixed: wrong treeview item selected #7
+
 ## 0.0.13
 - allow to specify bookmarks view follow behavior: `inline-bookmarks.view.followMode`
   - `nearest` - highlights the nearest bookmark (relative distance)
