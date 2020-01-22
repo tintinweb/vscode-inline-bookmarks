@@ -9,6 +9,7 @@
 const vscode = require('vscode');
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const settings = require('../settings');
 
 class Commands {
@@ -362,7 +363,7 @@ class InlineBookmarkTreeDataProvider {
 
     getTreeItem(element){
         return {
-            id: this._getId(element.location),
+            id: element.type == NodeType.LOCATION ? this._getId(element.location) : this._getId(element.resource),
             resourceUri: element.resource,
             label: this._formatLabel(element.label),
             iconPath: element.iconPath,
@@ -377,18 +378,9 @@ class InlineBookmarkTreeDataProvider {
 
     /* 
     Hash object to unique ID.
-    taken from: https://stackoverflow.com/a/7616484/1729555  
     */
     _getId(o) {
-        o = JSON.stringify(o);
-        var hash = 0, i, chr;
-        if (this.length === 0) return hash;
-        for (i = 0; i < this.length; i++) {
-            chr   = this.charCodeAt(i);
-            hash  = ((hash << 5) - hash) + chr;
-            hash |= 0; // Convert to 32bit integer
-        }
-        return hash;
+        return crypto.createHash('sha1').update(JSON.stringify(o)).digest('hex');
     }
 
     _formatLabel(label){
