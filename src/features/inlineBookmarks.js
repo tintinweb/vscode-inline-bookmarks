@@ -362,9 +362,9 @@ class InlineBookmarkTreeDataProvider {
 
     getTreeItem(element){
         return {
-            id: JSON.stringify(element.location),
+            id: this._getId(element.location),
             resourceUri: element.resource,
-            label: element.label,
+            label: this._formatLabel(element.label),
             iconPath: element.iconPath,
             collapsibleState: element.type == NodeType.LOCATION ? 0 : settings.extensionConfig().view.expanded ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.Collapsed,
             command: element.type == NodeType.LOCATION && element.location ? {
@@ -373,6 +373,30 @@ class InlineBookmarkTreeDataProvider {
                 title: 'JumpTo'
             } : 0
         };
+    }
+
+    /* 
+    Hash object to unique ID.
+    taken from: https://stackoverflow.com/a/7616484/1729555  
+    */
+    _getId(o) {
+        o = JSON.stringify(o);
+        var hash = 0, i, chr;
+        if (this.length === 0) return hash;
+        for (i = 0; i < this.length; i++) {
+            chr   = this.charCodeAt(i);
+            hash  = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+    }
+
+    _formatLabel(label){
+        if(!settings.extensionConfig().view.words.hide || !label){
+            return label;
+        }
+        let words = Object.values(this.controller.words).flat(1);
+        return words.reduce((prevs, word) => prevs.replace(new RegExp( word ,"g"), ""), label);  //replace tags in matches.
     }
 
     /** other methods */

@@ -135,6 +135,10 @@ The extension can be used to keep track of development notes and todo's, for doc
 
 see [CHANGELOG](./CHANGELOG.md)
 
+## 0.0.15
+- fixed: treeview item id(0) error
+- new: set `inline-bookmarks.view.words.hide` to hide tags/trigger words in bookmarks view (only for entries with additional text)
+
 ## 0.0.14
 - fixed: wrong treeview item selected #7
 

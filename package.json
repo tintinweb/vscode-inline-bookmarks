@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable inline Bookmarks",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "keywords": [
         "bookmark",
         "bookmarks",
@@ -131,6 +131,12 @@
 					],
                     "default": "nearest",
                     "markdownDescription": "Follow mode for highlighting bookmarks in the bookmarks view. **nearest** (Default): highlight nearest bookmark relative to the current selection. **chapter**: highlight nearest bookmark before or on the currently selected line."
+                },
+                "inline-bookmarks.view.words.hide": {
+                    "category": "view",
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Hide tags/trigger words in bookmark view if a comment was provided."
                 },
                 "inline-bookmarks.default.words.red": {
                     "category": "trigger words",
