@@ -43,11 +43,6 @@
     "contributes": {
         "commands": [
             {
-                "command": "inlineBookmarks.jumpToRange",
-                "title": "jump to line",
-                "category": "InlineBookmarks"
-            },
-            {
                 "command": "inlineBookmarks.refresh",
                 "title": "Refresh loaded bookmarks",
                 "category": "InlineBookmarks",
