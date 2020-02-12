@@ -24,6 +24,46 @@ function editorJumptoRange(range) {
     vscode.window.activeTextEditor.revealRange(selection, revealType);
 }
 
+function editorFindNearestBookmark(documentUri, treeDataProvider, anchor, overrideStrategy){
+    let root = treeDataProvider.getChildren().find(f => f.name == documentUri.toString());
+    if (!root){
+        return;  // file not found
+    }
+
+    //select bookmark that is closest to selection (or center of screen)
+    let focusLine = anchor.line;
+
+    // FollowMode 1 (default): nearest Bookmark
+    function strategyNearestBookmark(previous, current) {
+        return Math.abs(focusLine - current.location.range.start.line) <= Math.abs(focusLine - previous.location.range.start.line) ? current : previous;
+    }
+
+    // FollowMode 2: previous Bookmark - aka chapter style selection
+    function strategyLastKnownBookmark(previous, current) {
+        // return the current bookmark if the user clicked on a bookmark line
+        // return the last known aka previous Bookmark else
+        return focusLine >= current.location.range.start.line && focusLine - current.location.range.start.line <= focusLine - previous.location.range.start.line ? current : previous; 
+    }
+
+    let followMode = strategyNearestBookmark;
+    let strategy = overrideStrategy || settings.extensionConfig().view.followMode;
+
+    switch (strategy) {
+        case "chapter":
+            followMode = strategyLastKnownBookmark;
+            break;
+        case "nearest":
+        default:
+            followMode = strategyNearestBookmark;
+    }
+
+    let focusBookmark = treeDataProvider
+        .getChildren(root)
+        .reduce( (prevs, current) => followMode(prevs, current));
+
+    return focusBookmark;
+}
+
 function onActivate(context) {
     const auditTags = new InlineBookmarksCtrl(context);
     const treeDataProvider = new InlineBookmarkTreeDataProvider(auditTags);
@@ -70,8 +110,18 @@ function onActivate(context) {
     );
     context.subscriptions.push(
         vscode.commands.registerCommand("inlineBookmarks.jumpToNext", () => {
-            let element = treeView.selection.length ? treeView.selection[0] : null;
-
+            let element;
+            
+            if (treeView.visible && treeView.selection.length) {
+                //treview is visible and item selected
+                element = treeView.selection[0];
+            } else {
+                //no select, find nearest bookmark in editor
+                if(!activeEditor || !activeEditor._selections.length){
+                    return;
+                }
+                element = editorFindNearestBookmark(activeEditor.document.uri, treeDataProvider, activeEditor._selections[0].anchor, "chapter");
+            }
             if(!element){
                 return;
             }
@@ -87,8 +137,18 @@ function onActivate(context) {
     );
     context.subscriptions.push(
         vscode.commands.registerCommand("inlineBookmarks.jumpToPrevious", () => {
-            let element = treeView.selection.length ? treeView.selection[0] : null;
-
+            let element;
+            
+            if (treeView.visible && treeView.selection.length) {
+                //treview is visible and item selected
+                element = treeView.selection[0];
+            } else {
+                //no select, find nearest bookmark in editor
+                if(!activeEditor || !activeEditor._selections.length){
+                    return;
+                }
+                element = editorFindNearestBookmark(activeEditor.document.uri, treeDataProvider, activeEditor._selections[0].anchor, "chapter");
+            }
             if(!element){
                 return;
             }
@@ -172,40 +232,7 @@ function onActivate(context) {
             return;  // no visible range open; no selection
         }
 
-        let root = treeDataProvider.getChildren().find(f => f.name == documentUri.toString());
-        if (!root){
-            return;  // file not found
-        }
-
-        //select bookmark that is closest to selection (or center of screen)
-        let focusLine = event.selections[0].anchor.line;
-
-        // FollowMode 1 (default): nearest Bookmark
-        function strategyNearestBookmark(previous, current) {
-            return Math.abs(focusLine - current.location.range.start.line) <= Math.abs(focusLine - previous.location.range.start.line) ? current : previous;
-        }
-
-        // FollowMode 2: previous Bookmark - aka chapter style selection
-        function strategyLastKnownBookmark(previous, current) {
-            // return the current bookmark if the user clicked on a bookmark line
-            // return the last known aka previous Bookmark else
-            return focusLine >= current.location.range.start.line && focusLine - current.location.range.start.line <= focusLine - previous.location.range.start.line ? current : previous; 
-        }
-
-        let followMode = strategyNearestBookmark;
-
-        switch (settings.extensionConfig().view.followMode) {
-            case "chapter":
-                followMode = strategyLastKnownBookmark;
-                break;
-            case "nearest":
-            default:
-                followMode = strategyNearestBookmark;
-        }
-
-        let focusBookmark = treeDataProvider
-            .getChildren(root)
-            .reduce( (prevs, current) => followMode(prevs, current));
+        let focusBookmark = editorFindNearestBookmark(documentUri, treeDataProvider, event.selections[0].anchor);
 
         treeView.reveal(focusBookmark, {selected:true, focus:false});
     }
