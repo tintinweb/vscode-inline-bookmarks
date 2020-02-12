@@ -337,6 +337,44 @@ class InlineBookmarksDataModel {
             break;
         }
     }
+
+    /**
+    Find previous and next of element (for goto_next, goto_previous)
+
+    requires current element from tree
+    */
+    getNeighbors(element){
+        let ret = {previous:null, next:null};
+        let parent = element.parent;
+        if(!parent){
+            //fake the parent
+            parent = { ...element };  //use parent or derive it from bookmark
+            parent.type = NodeType.FILE;
+            parent.name = element.resource;
+        }
+
+        //get all children
+        let bookmarks = this.getChildren(parent);
+        
+        //lets track if we're at our element.
+        let gotElement = false;
+
+        for(let b of bookmarks){
+            // find element in list, note prevs, next
+            if(!gotElement && JSON.stringify(b.location) == JSON.stringify(element.location)){
+                gotElement = true;
+                continue;
+            }
+            if(!gotElement){
+                ret.previous = b;
+            } else {
+                ret.next = b;
+                break;
+            }
+        }
+
+        return ret; 
+    }
 }
 
 class InlineBookmarkTreeDataProvider {

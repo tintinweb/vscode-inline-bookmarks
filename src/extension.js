@@ -68,6 +68,40 @@ function onActivate(context) {
             settings.extensionConfig().update("view.expanded", !settings.extensionConfig().view.expanded);
         })
     );
+    context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.jumpToNext", () => {
+            let element = treeView.selection.length ? treeView.selection[0] : null;
+
+            if(!element){
+                return;
+            }
+            let neighbors = treeDataProvider.model.getNeighbors(element);
+            if(neighbors.next){
+                vscode.workspace.openTextDocument(neighbors.next.location.uri).then(doc => {
+                    vscode.window.showTextDocument(doc).then(editor => {
+                        editorJumptoRange(neighbors.next.location.range);
+                    });
+                });
+            }
+        })
+    );
+    context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.jumpToPrevious", () => {
+            let element = treeView.selection.length ? treeView.selection[0] : null;
+
+            if(!element){
+                return;
+            }
+            let neighbors = treeDataProvider.model.getNeighbors(element);
+            if(neighbors.previous){
+                vscode.workspace.openTextDocument(neighbors.previous.location.uri).then(doc => {
+                    vscode.window.showTextDocument(doc).then(editor => {
+                        editorJumptoRange(neighbors.previous.location.range);
+                    });
+                });
+            }
+        })
+    );
     /** module init */
     auditTags.commands.refresh();
     treeDataProvider.refresh();

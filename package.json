@@ -65,6 +65,16 @@
                 "title": "Toggle: Keep File View expanded",
                 "category": "InlineBookmarks",
                 "icon": "images/toggle-expanded.svg"
+            },
+            {
+                "command": "inlineBookmarks.jumpToNext",
+                "title": "Jump to Next",
+                "category": "InlineBookmarks"
+            },
+            {
+                "command": "inlineBookmarks.jumpToPrevious",
+                "title": "Jump to Previous",
+                "category": "InlineBookmarks"
             }
         ],
         "views": {
