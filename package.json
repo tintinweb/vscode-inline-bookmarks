@@ -75,6 +75,11 @@
                 "command": "inlineBookmarks.jumpToPrevious",
                 "title": "Jump to Previous",
                 "category": "InlineBookmarks"
+            },
+            {
+                "command": "inlineBookmarks.setTreeViewFilterWords",
+                "title": "Set View Filter",
+                "category": "InlineBookmarks"
             }
         ],
         "views": {

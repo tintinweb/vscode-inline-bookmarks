@@ -35,6 +35,7 @@ function editorFindNearestBookmark(documentUri, treeDataProvider, anchor, overri
 
     // FollowMode 1 (default): nearest Bookmark
     function strategyNearestBookmark(previous, current) {
+        if(!previous) return current;
         return Math.abs(focusLine - current.location.range.start.line) <= Math.abs(focusLine - previous.location.range.start.line) ? current : previous;
     }
 
@@ -42,6 +43,7 @@ function editorFindNearestBookmark(documentUri, treeDataProvider, anchor, overri
     function strategyLastKnownBookmark(previous, current) {
         // return the current bookmark if the user clicked on a bookmark line
         // return the last known aka previous Bookmark else
+        if(!previous) return current;
         return focusLine >= current.location.range.start.line && focusLine - current.location.range.start.line <= focusLine - previous.location.range.start.line ? current : previous; 
     }
 
@@ -59,7 +61,7 @@ function editorFindNearestBookmark(documentUri, treeDataProvider, anchor, overri
 
     let focusBookmark = treeDataProvider
         .getChildren(root)
-        .reduce( (prevs, current) => followMode(prevs, current));
+        .reduce( (prevs, current) => followMode(prevs, current), null);
 
     return focusBookmark;
 }
@@ -162,6 +164,30 @@ function onActivate(context) {
             }
         })
     );
+    context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.setTreeViewFilterWords", (words) => {
+            if(!words || !words.length){
+                //show dialog?
+                let options = {
+                    prompt: "Filter Bookmarks View:",
+                    placeHolder: "(e.g. @audit-info; @follow-up)"
+                };
+                
+                vscode.window.showInputBox(options).then(value => {
+                    value = value || "";
+                    value = value.trim().split(/[\s;]+/).map(v => v.trim()).filter(v => v.length > 0);
+                    treeDataProvider.setTreeViewFilterWords(value);
+                    auditTags.commands.refresh();
+                    treeDataProvider.refresh();
+                });
+            }
+            
+        })
+    );
+
+
+    
+
     /** module init */
     auditTags.commands.refresh();
     treeDataProvider.refresh();

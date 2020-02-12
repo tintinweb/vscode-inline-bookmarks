@@ -385,14 +385,16 @@ class InlineBookmarkTreeDataProvider {
 
         this.controller = inlineBookmarksController;
         this.model = new InlineBookmarksDataModel(inlineBookmarksController);
-    }
 
+        this.filterTreeViewWords = [];
+    }
+    
     /** events */
 
     /** methods */
 
     getChildren(element){
-        return element ? this.model.getChildren(element): this.model.getRoot();
+        return element ? this._filterTreeView(this.model.getChildren(element)): this.model.getRoot();
     }
 
     getParent(element){
@@ -429,7 +431,17 @@ class InlineBookmarkTreeDataProvider {
         return words.reduce((prevs, word) => prevs.replace(new RegExp( word ,"g"), ""), label);  //replace tags in matches.
     }
 
+    _filterTreeView(elements){
+        if (!this.filterTreeViewWords || !this.filterTreeViewWords.length){
+            return elements;
+        }
+        return elements.filter(e => this.filterTreeViewWords.some(rx => rx.test(e.label)));
+    }
     /** other methods */
+
+    setTreeViewFilterWords(words) {
+        this.filterTreeViewWords = words.map(w => new RegExp(w,'g'));
+    }
 
     refresh(){
         this._onDidChangeTreeData.fire();
