@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.0.16
+- new: added commands to jump to next/previous bookmark: `inlineBookmarks.jumpToNext` `inlineBookmarks.jumpToPrevious` #12
+  - **Note**: keyboard shortcuts can be configured in `code -> preferences -> keyboard shortcuts` #15
+- new: added functionality to filter the bookmark view #14
+- fixed: remove `jumpToLine` from command menu #13
+
 ## 0.0.15
 - fixed: treeview item id(0) error
 - new: set `inline-bookmarks.view.words.hide` to hide tags/trigger words in bookmarks view (only for entries with additional text)

@@ -43,6 +43,7 @@ The extension can be used to keep track of development notes and todo's, for doc
   * `@audit-issue` - (purple) Reference a code location an issue was filed for.
 
 **Note:** Words can be fully customized in: `code → preferences → Extensions: Inline Bookmarks`.
+**Note:** Keyboard shortcuts can be assigned in: `code → preferences → keyboard shortcuts`.
 
 <img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69680065-1457bb00-10aa-11ea-853b-c36fdfc68b96.png">
 
@@ -130,10 +131,21 @@ The extension can be used to keep track of development notes and todo's, for doc
 * click refresh to re-scan loaded files for changes
 * toggle to only show bookmarks for visible editors
 * the bookmarks view will follow your cursor location in the editor. the follow mode can be changed with the configuration option `inline-bookmarks.view.followMode`.
+* jump to next/previous bookmark with commands `inlineBookmarks.jumpToNext`, `inlineBookmarks.jumpToPrevious` (assign your own keyboard shortcut in vscode preferences) 
+* apply custom filter to bookmarks view with command `inlineBookmarks.setTreeViewFilterWords`.
+  * empty list unsets filter
+  * takes space- or semicolon-delimited list of regular expressions applied on the items label.
+  * affects `jumpToNext`, `jumpToPrevious`
  
 ## Release Notes
 
 see [CHANGELOG](./CHANGELOG.md)
+
+## 0.0.16
+- new: added commands to jump to next/previous bookmark: `inlineBookmarks.jumpToNext` `inlineBookmarks.jumpToPrevious` #12
+  - **Note**: keyboard shortcuts can be configured in `code -> preferences -> keyboard shortcuts` #15
+- new: added functionality to filter the bookmark view #14
+- fixed: remove `jumpToLine` from command menu #13
 
 ## 0.0.15
 - fixed: treeview item id(0) error

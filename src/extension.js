@@ -180,8 +180,12 @@ function onActivate(context) {
                     auditTags.commands.refresh();
                     treeDataProvider.refresh();
                 });
+            } else {
+                //arg provided - allow other extensions to set filters
+                treeDataProvider.setTreeViewFilterWords(words);
+                auditTags.commands.refresh();
+                treeDataProvider.refresh();
             }
-            
         })
     );
 
