@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable inline Bookmarks",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "keywords": [
         "bookmark",
         "bookmarks",
@@ -37,7 +37,8 @@
         "onCommand:inlineBookmarks.jumpToRange",
         "onCommand:inlineBookmarks.refresh",
         "onCommand:inlineBookmarks.toggleShowVisibleFilesOnly",
-        "onCommand:inlineBookmarks.toggleViewKeepFilesExpanded"
+        "onCommand:inlineBookmarks.toggleViewKeepFilesExpanded",
+        "onCommand:inlineBookmarks.debug.state.reset"
     ],
     "main": "./src/extension.js",
     "contributes": {
@@ -80,6 +81,11 @@
                 "command": "inlineBookmarks.setTreeViewFilterWords",
                 "title": "Set View Filter",
                 "category": "InlineBookmarks"
+            },
+            {
+                "command": "inlineBookmarks.debug.state.reset",
+                "title": "Reset the internal state to fix potential problems",
+                "category": "InlineBookmarks:Debug"
             }
         ],
         "views": {

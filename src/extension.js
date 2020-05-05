@@ -75,7 +75,9 @@ function onActivate(context) {
 
     /** register views */
     const treeView = vscode.window.createTreeView('inlineBookmarksExplorer', { treeDataProvider: treeDataProvider });
-
+    /*
+    context.subscriptions.push(treeView);
+    */
     /*
     context.subscriptions.push(
         vscode.window.registerTreeDataProvider("inlineBookmarksExplorer", treeDataProvider)
@@ -188,6 +190,13 @@ function onActivate(context) {
             }
         })
     );
+    context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.debug.state.reset", () => {
+            auditTags.resetWorkspace();
+            auditTags.loadFromWorkspace();
+            treeDataProvider.refresh();
+        })
+    );
 
 
     
@@ -263,6 +272,10 @@ function onActivate(context) {
         }
 
         let focusBookmark = editorFindNearestBookmark(documentUri, treeDataProvider, event.selections[0].anchor);
+
+        if(!focusBookmark){
+            return; //no bookmark found
+        }
 
         treeView.reveal(focusBookmark, {selected:true, focus:false});
     }

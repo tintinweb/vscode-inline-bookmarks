@@ -250,6 +250,11 @@ class InlineBookmarksCtrl {
         return vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length >= 1;
     }
 
+    resetWorkspace(){
+        if(!this._isWorkspaceAvailable()) return; //cannot save
+        this.context.workspaceState.update("bookmarks.object", "{}");
+    }
+
     saveToWorkspace(){
         if(!this._isWorkspaceAvailable()) return; //cannot save
         this.context.workspaceState.update("bookmarks.object", JSON.stringify(this.bookmarks));
@@ -402,6 +407,9 @@ class InlineBookmarkTreeDataProvider {
     }
 
     getTreeItem(element){
+        if(!element){
+            return element; // undef
+        }
         return {
             id: element.type == NodeType.LOCATION ? this._getId(element.location) : this._getId(element.resource),
             resourceUri: element.resource,
