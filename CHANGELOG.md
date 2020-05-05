@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.0.17
+- new: added functionality to quickly filter the list of bookmarks `inlineBookmarks.showSelectBookmark` #11
+- fixed: multiple issues where tree items or bookmarks where undefined #16
+- new: debug command to reset the stored bookmarks read from workspace. in case the workspace is corrupt. `inlineBookmarks.debug.state.reset` #16
+
 ## 0.0.16
 - new: added commands to jump to next/previous bookmark: `inlineBookmarks.jumpToNext` `inlineBookmarks.jumpToPrevious` #12
   - **Note**: keyboard shortcuts can be configured in `code -> preferences -> keyboard shortcuts` #15
