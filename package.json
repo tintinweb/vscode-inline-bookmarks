@@ -38,7 +38,8 @@
         "onCommand:inlineBookmarks.refresh",
         "onCommand:inlineBookmarks.toggleShowVisibleFilesOnly",
         "onCommand:inlineBookmarks.toggleViewKeepFilesExpanded",
-        "onCommand:inlineBookmarks.debug.state.reset"
+        "onCommand:inlineBookmarks.debug.state.reset",
+        "onCommand:inlineBookmarks.showSelectBookmark"
     ],
     "main": "./src/extension.js",
     "contributes": {
@@ -80,6 +81,11 @@
             {
                 "command": "inlineBookmarks.setTreeViewFilterWords",
                 "title": "Set View Filter",
+                "category": "InlineBookmarks"
+            },
+            {
+                "command": "inlineBookmarks.showSelectBookmark",
+                "title": "Select Bookmark",
                 "category": "InlineBookmarks"
             },
             {

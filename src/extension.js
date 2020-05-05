@@ -66,6 +66,8 @@ function editorFindNearestBookmark(documentUri, treeDataProvider, anchor, overri
     return focusBookmark;
 }
 
+
+
 function onActivate(context) {
     const auditTags = new InlineBookmarksCtrl(context);
     const treeDataProvider = new InlineBookmarkTreeDataProvider(auditTags);
@@ -197,7 +199,11 @@ function onActivate(context) {
             treeDataProvider.refresh();
         })
     );
-
+    context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.showSelectBookmark", () => {
+            auditTags.commands.showSelectBookmark();
+        })
+    );
 
     
 

@@ -24,6 +24,30 @@ class Commands {
             });
         }, this);
     }
+
+    showSelectBookmark(){
+
+        let entries = [];
+        Object.keys(this.controller.bookmarks).forEach(uri => {
+            let resource = vscode.Uri.parse(uri).fsPath;
+            let fname = path.parse(resource).base;
+            
+            Object.keys(this.controller.bookmarks[uri]).forEach(cat => {
+                this.controller.bookmarks[uri][cat].forEach(b => {
+                    entries.push({
+                        label:b.text, 
+                        description:fname, 
+                        target:new vscode.Location(resource, b.range)
+                    });
+                });
+            });
+            
+        }, this);
+        
+        vscode.window.showQuickPick(entries, { placeHolder: 'Select bookmarks' }).then(item => {
+            vscode.commands.executeCommand("inlineBookmarks.jumpToRange", item.target.uri, item.target.range);
+        });
+    }
 }
 
 class InlineBookmarksCtrl {
