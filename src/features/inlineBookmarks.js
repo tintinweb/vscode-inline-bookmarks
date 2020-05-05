@@ -398,7 +398,7 @@ class InlineBookmarkTreeDataProvider {
     }
 
     getParent(element){
-        return element.parent;
+        return element ? element.parent : element;
     }
 
     getTreeItem(element){
