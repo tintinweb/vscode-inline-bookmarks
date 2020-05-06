@@ -4,7 +4,7 @@
 </sup><br/><br/>
 
 
-# Inline Bookmarks   
+# Inline Bookmarks
 
 <img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69679883-91366500-10a9-11ea-8e36-ba3e799127b3.png">
 
@@ -47,8 +47,29 @@ The extension can be used to keep track of development notes and todo's, for doc
 
 <img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69680065-1457bb00-10aa-11ea-853b-c36fdfc68b96.png">
 
+#### Filterable Bookmarks Finder
+
+command: `inlineBookmarks.showSelectBookmark`
+
+<img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/81169692-8b6a7700-8f99-11ea-9ab2-8b121154c99a.gif">
+
+#### Bookmarks View
+
+* click on a bookmark to jump to its location
+* click refresh to re-scan loaded files for changes
+* toggle to only show bookmarks for visible editors
+* the bookmarks view will follow your cursor location in the editor. the follow mode can be changed with the configuration option `inline-bookmarks.view.followMode`.
+* jump to next/previous bookmark with commands `inlineBookmarks.jumpToNext`, `inlineBookmarks.jumpToPrevious` (assign your own keyboard shortcut in vscode preferences) 
+* apply custom filter to bookmarks view with command `inlineBookmarks.setTreeViewFilterWords`.
+  * empty list unsets filter
+  * takes space- or semicolon-delimited list of regular expressions applied on the items label.
+  * affects `jumpToNext`, `jumpToPrevious`
+
+
 ## Expert
 
+* reset the internal bookmarks state: `inlineBookmarks.debug.state.reset`
+  * bookmarks view is populated when files containing bookmarks are openend in the editor
 * go to the extension settings: `code → preferences → Extensions: Inline Bookmarks`
 * Exceptions
   * configure file-extensions to be exempt from decoration
@@ -123,19 +144,7 @@ The extension can be used to keep track of development notes and todo's, for doc
 }
 ```
 
-* Note: gutter icons are hardcoded atm.
-
-#### Bookmarks View
-
-* click on a bookmark to jump to its location
-* click refresh to re-scan loaded files for changes
-* toggle to only show bookmarks for visible editors
-* the bookmarks view will follow your cursor location in the editor. the follow mode can be changed with the configuration option `inline-bookmarks.view.followMode`.
-* jump to next/previous bookmark with commands `inlineBookmarks.jumpToNext`, `inlineBookmarks.jumpToPrevious` (assign your own keyboard shortcut in vscode preferences) 
-* apply custom filter to bookmarks view with command `inlineBookmarks.setTreeViewFilterWords`.
-  * empty list unsets filter
-  * takes space- or semicolon-delimited list of regular expressions applied on the items label.
-  * affects `jumpToNext`, `jumpToPrevious`
+* Note: gutter icons are hardcoded at this time.
  
 ## Release Notes
 
