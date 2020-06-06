@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.18
+- fixed: extension not fully registered if vscode is slow or editor not set
+  - may manifest as cross-extension incompatibility as reported with #17
+
 ## 0.0.17
 - new: added functionality to quickly filter the list of bookmarks `inlineBookmarks.showSelectBookmark` #11
 - fixed: multiple issues where tree items or bookmarks where undefined #16

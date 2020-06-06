@@ -73,7 +73,6 @@ function onActivate(context) {
     const treeDataProvider = new InlineBookmarkTreeDataProvider(auditTags);
 
     var activeEditor = vscode.window.activeTextEditor;
-    if (!activeEditor || !activeEditor.document) return;
 
     /** register views */
     const treeView = vscode.window.createTreeView('inlineBookmarksExplorer', { treeDataProvider: treeDataProvider });
@@ -123,7 +122,7 @@ function onActivate(context) {
                 element = treeView.selection[0];
             } else {
                 //no select, find nearest bookmark in editor
-                if(!activeEditor || !activeEditor._selections.length){
+                if(!activeEditor || !activeEditor._selections.length || !activeEditor.document){
                     return;
                 }
                 element = editorFindNearestBookmark(activeEditor.document.uri, treeDataProvider, activeEditor._selections[0].anchor, "chapter");
@@ -150,7 +149,7 @@ function onActivate(context) {
                 element = treeView.selection[0];
             } else {
                 //no select, find nearest bookmark in editor
-                if(!activeEditor || !activeEditor._selections.length){
+                if(!activeEditor || !activeEditor._selections.length || !activeEditor.document){
                     return;
                 }
                 element = editorFindNearestBookmark(activeEditor.document.uri, treeDataProvider, activeEditor._selections[0].anchor, "chapter");
