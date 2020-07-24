@@ -70,9 +70,11 @@ class InlineBookmarksCtrl {
     }
 
     async decorate(editor){
-        if (!editor || !editor.document || editor.document.fileName.startsWith("extension-output-") || this._extensionIsBlacklisted(editor.document.fileName)) return;
+        if (!editor || !editor.document || editor.document.fileName.startsWith("extension-output-")) return;
         
         this._clearBookmarksOfFile(editor.document);
+
+        if(this._extensionIsBlacklisted(editor.document.fileName)) return;
 
         for (var style in this.words) {
             if (!this.words.hasOwnProperty(style) || this.words[style].length == 0 || this._wordIsOnIgnoreList(this.words[style])) {           
@@ -85,9 +87,11 @@ class InlineBookmarksCtrl {
     }
 
     async updateBookmarks(document){
-        if (!document || document.fileName.startsWith("extension-output-") || this._extensionIsBlacklisted(document.fileName)) return;
+        if (!document || document.fileName.startsWith("extension-output-")) return;
 
         this._clearBookmarksOfFile(document);
+
+        if(this._extensionIsBlacklisted(document.fileName)) return;
 
         for (var style in this.words) {
             if (!this.words.hasOwnProperty(style) || this.words[style].length == 0 || this._wordIsOnIgnoreList(this.words[style])) {           
