@@ -130,7 +130,7 @@ class InlineBookmarksCtrl {
             if (!this.words.hasOwnProperty(style) || this.words[style].length == 0 || this._wordIsOnIgnoreList(this.words[style])) {
                 continue;
             }
-            this._decorateWords(editor, this.words[style], style);
+            this._decorateWords(editor, this.words[style], style, editor.document.fileName.startsWith("extension-output-")); //dont add to bookmarks if we're decorating an extension-output
         }
 
         this.saveToWorkspace(); //update workspace
@@ -171,13 +171,13 @@ class InlineBookmarksCtrl {
         return [...new Set(s.trim().split(',').map(e => e.trim()).filter(e => e.length))];
     }
 
-    async _decorateWords(editor, words, style) {
+    async _decorateWords(editor, words, style, noAdd) {
         const decoStyle = this.styles[style] || this.styles['default'];
 
         let locations = this._findWords(editor.document, words);
         editor.setDecorations(decoStyle, locations);  // set decorations
 
-        if (locations.length)
+        if (locations.length && !noAdd)
             this._addBookmark(editor.document, style, locations);
     }
 
