@@ -11,6 +11,7 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 const settings = require('../settings');
+const os = require("os");
 
 class Commands {
     constructor(controller){
@@ -48,6 +49,55 @@ class Commands {
             vscode.commands.executeCommand("inlineBookmarks.jumpToRange", item.target.uri, item.target.range);
         });
     }
+
+    showListBookmarks(){
+
+        if (!vscode.window.outputChannel) {
+            vscode.window.outputChannel = vscode.window.createOutputChannel('inlineBookmarks');
+        }
+
+        if (!vscode.window.outputChannel) return;
+        vscode.window.outputChannel.clear();
+
+        let entries = [];
+        Object.keys(this.controller.bookmarks).forEach(uri => {
+            let resource = vscode.Uri.parse(uri).fsPath;
+            let fname = path.parse(resource).base;
+            
+            Object.keys(this.controller.bookmarks[uri]).forEach(cat => {
+                this.controller.bookmarks[uri][cat].forEach(b => {
+                    entries.push({
+                        label:b.text, 
+                        description:fname, 
+                        target:new vscode.Location(resource, b.range)
+                    });
+                });
+            });
+            
+        }, this);
+
+        if (entries.length === 0) {
+            vscode.window.showInformationMessage('No results');
+            return;
+        }
+        
+        entries.forEach(function (v, i, a) {            
+            var patternA = '#' + (i + 1) + '\t' + v.target.uri + '#' + ( v.target.range.start.line + 1);
+            var patternB = '#' + (i + 1) + '\t' +  v.target.uri + ':' + (v.target.range.start.line+ 1) + ':' + (v.target.range.start.character + 1);
+            var patterns = [patternA, patternB];
+    
+            var patternType = 0;
+            if (os.platform() == "linux") {
+                patternType = 1;
+            }
+            patternType = +!patternType;
+            
+            vscode.window.outputChannel.appendLine(patterns[patternType]);
+            vscode.window.outputChannel.appendLine('\t' + v.label + '\n');
+        });
+        vscode.window.outputChannel.show();
+    }
+    
 }
 
 class InlineBookmarksCtrl {
@@ -70,7 +120,7 @@ class InlineBookmarksCtrl {
     }
 
     async decorate(editor){
-        if (!editor || !editor.document || editor.document.fileName.startsWith("extension-output-")) return;
+        if (!editor || !editor.document /*|| editor.document.fileName.startsWith("extension-output-")*/) return; //decorate list of inline comments
         
         this._clearBookmarksOfFile(editor.document);
 

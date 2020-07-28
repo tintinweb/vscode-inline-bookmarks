@@ -89,6 +89,11 @@
                 "category": "InlineBookmarks"
             },
             {
+                "command": "inlineBookmarks.listBookmarks",
+                "title": "List",
+                "category": "InlineBookmarks"
+            },
+            {
                 "command": "inlineBookmarks.debug.state.reset",
                 "title": "Reset the internal state to fix potential problems",
                 "category": "InlineBookmarks:Debug"

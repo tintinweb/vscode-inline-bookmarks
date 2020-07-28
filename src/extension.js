@@ -204,6 +204,12 @@ function onActivate(context) {
         })
     );
 
+    context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.listBookmarks", () => {
+            auditTags.commands.showListBookmarks();
+        })
+    );
+
     
 
     /** module init */
