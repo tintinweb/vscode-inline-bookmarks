@@ -560,12 +560,12 @@ class InlineBookmarkTreeDataProvider {
         if (!this.filterTreeViewWords || !this.filterTreeViewWords.length) {
             return elements;
         }
-        return elements.filter(e => this.filterTreeViewWords.some(rx => rx.test(e.label)));
+        return elements.filter(e => this.filterTreeViewWords.some(rx => new RegExp(rx, 'g').test(e.label)));
     }
     /** other methods */
 
     setTreeViewFilterWords(words) {
-        this.filterTreeViewWords = words.map(w => new RegExp(w, 'g'));
+        this.filterTreeViewWords = words;
     }
 
     refresh() {
