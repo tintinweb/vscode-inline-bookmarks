@@ -150,6 +150,16 @@ command: `inlineBookmarks.showSelectBookmark`
 
 see [CHANGELOG](./CHANGELOG.md)
 
+## 0.0.19
+- new: command to list all bookmarks (text) - #22
+- new: experimental command to scan workspace for bookmarks - #22
+  - note: don't use this on large workspaces. if it breaks use the `onCommand:inlineBookmarks.debug.state.reset` command from the command palette
+- fixed: listview filter not working correctly - #24
+
+## 0.0.18
+- fixed: extension not fully registered if vscode is slow or editor not set
+  - may manifest as cross-extension incompatibility as reported with #17
+
 ## 0.0.17
 - new: added functionality to quickly filter the list of bookmarks `inlineBookmarks.showSelectBookmark` #11
 - fixed: multiple issues where tree items or bookmarks where undefined #16
