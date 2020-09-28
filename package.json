@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable inline Bookmarks",
-    "version": "0.0.18",
+    "version": "0.0.19",
     "keywords": [
         "bookmark",
         "bookmarks",
