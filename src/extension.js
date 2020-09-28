@@ -210,6 +210,12 @@ function onActivate(context) {
         })
     );
 
+    context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.scanWorkspace", () => {
+            auditTags.commands.scanWorkspaceBookmarks();
+        })
+    );
+
     
 
     /** module init */

@@ -98,6 +98,45 @@ class Commands {
         vscode.window.outputChannel.show();
     }
 
+    scanWorkspaceBookmarks() {
+
+        function arrayToSearchGlobPattern(config) {
+            return Array.isArray(config) ?
+                '{' + config.join(',') + '}'
+                : (typeof config == 'string' ? config : '');
+        }
+
+        var includePattern = arrayToSearchGlobPattern(settings.extensionConfig().search.includes) || '{**/*}';
+        var excludePattern = arrayToSearchGlobPattern(settings.extensionConfig().search.excludes);
+        var limit = settings.extensionConfig().search.maxFiles;
+
+        let that = this;
+    
+        vscode.workspace.findFiles(includePattern, excludePattern, limit).then(function (files) {
+    
+            if (!files || files.length === 0) {
+                console.log('No files found' );
+                return;
+            }
+    
+            var totalFiles = files.length;
+
+            for (var i = 0; i < totalFiles; i++) {
+    
+                vscode.workspace.openTextDocument(files[i]).then((document) => {
+                    that.controller.updateBookmarks(document);
+                    //NOP
+                }, (err) => {
+                    console.error(err);
+                });
+    
+            }
+            
+        }, (err) => {
+            console.error(err);
+        });
+    }
+
 }
 
 class InlineBookmarksCtrl {
