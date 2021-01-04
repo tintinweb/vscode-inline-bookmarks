@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable inline Bookmarks",
-    "version": "0.0.19",
+    "version": "0.0.20",
     "keywords": [
         "bookmark",
         "bookmarks",
@@ -46,7 +46,7 @@
         "commands": [
             {
                 "command": "inlineBookmarks.refresh",
-                "title": "Refresh loaded bookmarks",
+                "title": "Quick-Refresh View",
                 "category": "InlineBookmarks",
                 "icon": {
                     "light": "images/refresh-light.svg",
@@ -69,19 +69,31 @@
                 "icon": "images/toggle-expanded.svg"
             },
             {
-                "command": "inlineBookmarks.jumpToNext",
-                "title": "Jump to Next",
-                "category": "InlineBookmarks"
-            },
-            {
                 "command": "inlineBookmarks.jumpToPrevious",
                 "title": "Jump to Previous",
-                "category": "InlineBookmarks"
+                "category": "InlineBookmarks",
+                "icon": {
+                    "light": "images/jump-previous.svg",
+                    "dark": "images/jump-previous-dark.svg"
+                }
+            },
+            {
+                "command": "inlineBookmarks.jumpToNext",
+                "title": "Jump to Next",
+                "category": "InlineBookmarks",
+                "icon": {
+                    "light": "images/jump-next.svg",
+                    "dark": "images/jump-next-dark.svg"
+                }
             },
             {
                 "command": "inlineBookmarks.setTreeViewFilterWords",
-                "title": "Set View Filter",
-                "category": "InlineBookmarks"
+                "title": "Filter View ...",
+                "category": "InlineBookmarks",
+                "icon": {
+                    "light": "images/filter-light.svg",
+                    "dark": "images/filter-dark.svg"
+                }
             },
             {
                 "command": "inlineBookmarks.showSelectBookmark",
@@ -96,7 +108,11 @@
             {
                 "command": "inlineBookmarks.scanWorkspace",
                 "title": "Scan Workspace for Bookmarks",
-                "category": "InlineBookmarks"
+                "category": "InlineBookmarks",
+                "icon": {
+                    "light": "images/scan-workspace.svg",
+                    "dark": "images/scan-workspace-dark.svg"
+                }
             },
             {
                 "command": "inlineBookmarks.debug.state.reset",
@@ -115,14 +131,34 @@
         "menus": {
             "view/title": [
                 {
+                    "command": "inlineBookmarks.jumpToPrevious",
+                    "when": "view == inlineBookmarksExplorer",
+                    "group": "navigation@1"
+                },
+                {
+                    "command": "inlineBookmarks.jumpToNext",
+                    "when": "view == inlineBookmarksExplorer",
+                    "group": "navigation@2"
+                },
+                {
+                    "command": "inlineBookmarks.setTreeViewFilterWords",
+                    "when": "view == inlineBookmarksExplorer",
+                    "group": "navigation@3"
+                },
+                {
                     "command": "inlineBookmarks.toggleShowVisibleFilesOnly",
                     "when": "view == inlineBookmarksExplorer",
-                    "group": "navigation"
+                    "group": "navigation@4"
                 },
                 {
                     "command": "inlineBookmarks.refresh",
                     "when": "view == inlineBookmarksExplorer",
-                    "group": "navigation"
+                    "group": "navigation@5"
+                },
+                {
+                    "command": "inlineBookmarks.scanWorkspace",
+                    "when": "view == inlineBookmarksExplorer",
+                    "group": "navigation@6"
                 }
             ]
         },

@@ -173,7 +173,7 @@ function onActivate(context) {
                 //show dialog?
                 let options = {
                     prompt: "Filter Bookmarks View:",
-                    placeHolder: "(e.g. @audit-info; @follow-up)"
+                    placeHolder: "(e.g. @audit-info; @follow-up; leave empty to disable filter)"
                 };
                 
                 vscode.window.showInputBox(options).then(value => {

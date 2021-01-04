@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.0.20
+- new: new quick actions to bookmarks view - #20
+  - Jump to Next/Previous, Filter View, Scan Workspace for Bookmarks (slow)
+  - renamed "Set View Filter" to "Filter View ..."
+  - updated "Filter View ..." prompt with a note that an empty filter disables filtering
+
 ## 0.0.19
 - new: command to list all bookmarks (text)
 - new: experimental command to scan workspace for bookmarks
