@@ -2,9 +2,21 @@
 
 ## 0.0.20
 - new: new quick actions to bookmarks view - #20
-  - Jump to Next/Previous, Filter View, Scan Workspace for Bookmarks (slow)
+  - Jump to Previous/Next, Filter View, Scan Workspace for Bookmarks (slow)
   - renamed "Set View Filter" to "Filter View ..."
   - updated "Filter View ..." prompt with a note that an empty filter disables filtering
+  
+Buttons (left to right):
+- Jump to previous bookmark.
+- Jump to next bookmark.
+- Filter bookmark view: the prompt accepts regular expressions. keep empty to disable filtering.
+- Toggle: show bookmark for visible editors only.
+- Quick Refresh: refreshes the bookmark from the internal cache.
+- Scan Workspace for Bookmarks: scans all documents in the workspace for bookmark tags
+
+ ![image](https://user-images.githubusercontent.com/2865694/103533925-44b57f80-4e8e-11eb-8602-8fda358c8961.png)
+
+ 
 
 ## 0.0.19
 - new: command to list all bookmarks (text)
