@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.0.21
+- fixed: an update to vscode caused the list-view selection tracking to fail with "cannot read property '_uri'  of undefined" - see #33 
+
 ## 0.0.20
 - new: new quick actions to bookmarks view - #20
   - Jump to Previous/Next, Filter View, Scan Workspace for Bookmarks (slow)
