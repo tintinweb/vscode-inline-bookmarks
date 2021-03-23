@@ -281,10 +281,10 @@ function onActivate(context) {
         if(!treeView.visible || !settings.extensionConfig().view.follow){
             return;  // not visible, no action
         }
+        
+        let documentUri = event.textEditor.document.uri;
 
-        let documentUri = event.textEditor._documentData._uri;
-
-        if(event.textEditor._visibleRanges.length <= 0 || event.selections.length <= 0){
+        if(event.textEditor.visibleRanges.length <= 0 || event.selections.length <= 0){
             return;  // no visible range open; no selection
         }
 
