@@ -26,12 +26,16 @@ class Commands {
         }, this);
     }
 
-    showSelectBookmark() {
+    showSelectBookmark(filter, placeHolder) {
 
         let entries = [];
         Object.keys(this.controller.bookmarks).forEach(uri => {
             let resource = vscode.Uri.parse(uri).fsPath;
             let fname = path.parse(resource).base;
+
+            if(!filter(resource)){
+                return;
+            }
 
             Object.keys(this.controller.bookmarks[uri]).forEach(cat => {
                 this.controller.bookmarks[uri][cat].forEach(b => {
@@ -45,12 +49,17 @@ class Commands {
 
         }, this);
 
-        vscode.window.showQuickPick(entries, { placeHolder: 'Select bookmarks' }).then(item => {
+        vscode.window.showQuickPick(entries, { placeHolder: placeHolder || 'Select bookmarks' }).then(item => {
             vscode.commands.executeCommand("inlineBookmarks.jumpToRange", item.target.uri, item.target.range);
         });
     }
 
-    showListBookmarks() {
+    showSelectVisibleBookmark() {
+        let visibleEditorUris = vscode.window.visibleTextEditors.map(te => te.document.uri.fsPath);
+        this.showSelectBookmark((resFsPath) => visibleEditorUris.includes(resFsPath), "Select visible bookmarks");
+    }
+
+    showListBookmarks(filter) {
 
         if (!vscode.window.outputChannel) {
             vscode.window.outputChannel = vscode.window.createOutputChannel('inlineBookmarks');
@@ -63,6 +72,10 @@ class Commands {
         Object.keys(this.controller.bookmarks).forEach(uri => {
             let resource = vscode.Uri.parse(uri).fsPath;
             let fname = path.parse(resource).base;
+
+            if(!filter(resource)){
+                return;
+            }
 
             Object.keys(this.controller.bookmarks[uri]).forEach(cat => {
                 this.controller.bookmarks[uri][cat].forEach(b => {
@@ -96,6 +109,11 @@ class Commands {
             vscode.window.outputChannel.appendLine('\t' + v.label + '\n');
         });
         vscode.window.outputChannel.show();
+    }
+
+    showListVisibleBookmarks() {
+        let visibleEditorUris = vscode.window.visibleTextEditors.map(te => te.document.uri.fsPath);
+        this.showListBookmarks((resFsPath) => visibleEditorUris.includes(resFsPath));
     }
 
     scanWorkspaceBookmarks() {

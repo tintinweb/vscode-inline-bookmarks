@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable inline Bookmarks",
-    "version": "0.0.21",
+    "version": "0.0.22",
     "keywords": [
         "bookmark",
         "bookmarks",
@@ -39,7 +39,11 @@
         "onCommand:inlineBookmarks.toggleShowVisibleFilesOnly",
         "onCommand:inlineBookmarks.toggleViewKeepFilesExpanded",
         "onCommand:inlineBookmarks.debug.state.reset",
-        "onCommand:inlineBookmarks.showSelectBookmark"
+        "onCommand:inlineBookmarks.showSelectBookmark",
+        "onCommand:inlineBookmarks.showSelectVisibleBookmark",
+        "onCommand:inlineBookmarks.listBookmarks",
+        "onCommand:inlineBookmarks.listVisibleBookmarks",
+        "onCommand:inlineBookmarks.scanWorkspace"
     ],
     "main": "./src/extension.js",
     "contributes": {
@@ -101,8 +105,18 @@
                 "category": "InlineBookmarks"
             },
             {
+                "command": "inlineBookmarks.showSelectVisibleBookmark",
+                "title": "Select Visible Bookmark",
+                "category": "InlineBookmarks"
+            },
+            {
                 "command": "inlineBookmarks.listBookmarks",
                 "title": "List Bookmarks",
+                "category": "InlineBookmarks"
+            },
+            {
+                "command": "inlineBookmarks.listVisibleBookmarks",
+                "title": "List Visible Bookmarks",
                 "category": "InlineBookmarks"
             },
             {

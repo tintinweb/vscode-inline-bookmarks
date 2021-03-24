@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.22
+- new: command `List Visible Bookmarks` prints bookmarks for currently visible editors (use `List Bookmarks` if you want to print all bookmarks)
+- new: command `Select Visible Bookmark` that allows to quickly jump to bookmarks in currently visible editors (use `Select Bookmark` if you want to select from an unfiltered list)
+- 
 ## 0.0.21
 - fixed: an update to vscode caused the list-view selection tracking to fail with "cannot read property '_uri'  of undefined" - see #33 
 

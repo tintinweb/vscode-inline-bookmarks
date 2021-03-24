@@ -205,8 +205,20 @@ function onActivate(context) {
     );
 
     context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.showSelectVisibleBookmark", () => {
+            auditTags.commands.showSelectVisibleBookmark();
+        })
+    );
+
+    context.subscriptions.push(
         vscode.commands.registerCommand("inlineBookmarks.listBookmarks", () => {
             auditTags.commands.showListBookmarks();
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand("inlineBookmarks.listVisibleBookmarks", () => {
+            auditTags.commands.showListVisibleBookmarks();
         })
     );
 
