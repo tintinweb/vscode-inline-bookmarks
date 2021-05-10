@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.0.23
+- new: Color indicators for the overview ruler `overviewRulerColor` for all tags - #35
+
 ## 0.0.22
 - new: command `List Visible Bookmarks` prints bookmarks for currently visible editors (use `List Bookmarks` if you want to print all bookmarks)
 - new: command `Select Visible Bookmark` that allows to quickly jump to bookmarks in currently visible editors (use `Select Bookmark` if you want to select from an unfiltered list)

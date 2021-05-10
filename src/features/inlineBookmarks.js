@@ -318,6 +318,7 @@ class InlineBookmarksCtrl {
             }),
             "red": vscode.window.createTextEditorDecorationType({
                 "gutterIconPath": this.context.asAbsolutePath(path.join("images", "bookmark-red.svg")),
+                "overviewRulerColor": "rgba(244, 67, 54, 0.7)",
                 "light": {
                     "fontWeight": "bold"
                 },
@@ -327,6 +328,7 @@ class InlineBookmarksCtrl {
             }),
             "blue": vscode.window.createTextEditorDecorationType({
                 "gutterIconPath": this.context.asAbsolutePath(path.join("images", "bookmark-blue.svg")),
+                "overviewRulerColor": "rgba(21, 126, 251, 0.7)",
                 "light": {
                     "fontWeight": "bold"
                 },
@@ -336,6 +338,7 @@ class InlineBookmarksCtrl {
             }),
             "green": vscode.window.createTextEditorDecorationType({
                 "gutterIconPath": this.context.asAbsolutePath(path.join("images", "bookmark-green.svg")),
+                "overviewRulerColor": "rgba(47, 206, 124, 0.7)",
                 "light": {
                     "fontWeight": "bold"
                 },
@@ -345,6 +348,7 @@ class InlineBookmarksCtrl {
             }),
             "purple": vscode.window.createTextEditorDecorationType({
                 "gutterIconPath": this.context.asAbsolutePath(path.join("images", "bookmark-purple.svg")),
+                "overviewRulerColor": "rgba(198, 121, 224, 0.7)",
                 "light": {
                     "fontWeight": "bold"
                 },
