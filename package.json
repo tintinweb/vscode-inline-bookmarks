@@ -214,6 +214,12 @@
                     "default": "nearest",
                     "markdownDescription": "Follow mode for highlighting bookmarks in the bookmarks view. **nearest** (Default): highlight nearest bookmark relative to the current selection. **chapter**: highlight nearest bookmark before or on the currently selected line."
                 },
+                "inline-bookmarks.view.lineMode": {
+                    "category": "view",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Jump to Next/Previous Bookmark will jump based on the current line number instead of the current selected bookmark."
+                },
                 "inline-bookmarks.view.words.hide": {
                     "category": "view",
                     "type": "boolean",
