@@ -229,7 +229,7 @@ class InlineBookmarksCtrl {
     }
 
     async _decorateWords(editor, words, style, noAdd) {
-        const decoStyle = this.styles[style] || this.styles['default'];
+        const decoStyle = this.styles[style].type || this.styles['default'].type;
 
         let locations = this._findWords(editor.document, words);
         editor.setDecorations(decoStyle, locations);  // set decorations
@@ -311,8 +311,12 @@ class InlineBookmarksCtrl {
         );
     }
 
-    _getDecorationType(color) {
-        return vscode.window.createTextEditorDecorationType({
+    _getDecorationStyle(decoOptions) {
+        return { type: vscode.window.createTextEditorDecorationType(decoOptions), options: decoOptions };
+    }
+
+    _getDecorationDefaultStyle(color) {
+        return this._getDecorationStyle({
             "gutterIconPath": this._getBookmarkDataUri(color),
             "overviewRulerColor": color+"B0",   // this is safe/suitable for the defaults only.  Custom ruler color is handled below.
             "light": {
@@ -330,11 +334,11 @@ class InlineBookmarksCtrl {
         const purple    = '#C679E0';
         const red       = '#F44336';
         let styles      = {
-            "default":  this._getDecorationType(blue),
-            "red":      this._getDecorationType(red),
-            "blue":     this._getDecorationType(blue),
-            "green":    this._getDecorationType(green),
-            "purple":   this._getDecorationType(purple)
+            "default":  this._getDecorationDefaultStyle(blue),
+            "red":      this._getDecorationDefaultStyle(red),
+            "blue":     this._getDecorationDefaultStyle(blue),
+            "green":    this._getDecorationDefaultStyle(green),
+            "purple":   this._getDecorationDefaultStyle(purple)
         };
 
         let customStyles = settings.extensionConfig().expert.custom.styles;
@@ -363,7 +367,7 @@ class InlineBookmarksCtrl {
             if (decoOptions.backgroundColor) {
                 decoOptions.isWholeLine = true;
             }
-            styles[decoId] = vscode.window.createTextEditorDecorationType(decoOptions);
+            styles[decoId] = this._getDecorationStyle(decoOptions);
         }
 
         return styles;
@@ -457,7 +461,7 @@ class InlineBookmarksDataModel {
                             type: NodeType.LOCATION,
                             category: cat,
                             parent: element,
-                            iconPath: vscode.Uri.file(this.controller.context.asAbsolutePath(path.join("images", `bookmark-${cat}.svg`)))
+                            iconPath: this.controller.styles[cat].options.gutterIconPath
                         };
                     });
                 }).flat(1);
