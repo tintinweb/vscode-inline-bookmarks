@@ -86,7 +86,8 @@ Buttons (left to right):
   * configure temporary overrides for trigger words to be exempt from decoration (matches begin of word)
 * Custom Styles
   * be aware that existing styles can be overridden
-  * The `gutterIconPath` is not customizable right now. You can only use the images provided with the extension right now: `images/bookmark-{red,green,blue,purple}.svg`. See example below.
+  * `gutterIconPath` may refer to only the four images provided with the extension right now: `images/bookmark-{red,green,blue,purple}.svg`. See example below.
+  * `gutterIconColor` may be used to specify a custom icon color using any RGBA format. gutterIconColor will override gutterIconPath. See example below.
 * Custom word mappings
   * You can assign multiple regex trigger words to a decoration style. See example below.
 
@@ -106,6 +107,7 @@ Buttons (left to right):
     },
     "red": {
         "gutterIconPath": "images/bookmark-red.svg",
+        "gutterIconColor": "#F44336",
         "light": {
             "fontWeight": "bold"
         },
@@ -133,6 +135,16 @@ Buttons (left to right):
     },
     "purple": {
         "gutterIconPath": "images/bookmark-purple.svg",
+        "light": {
+            "fontWeight": "bold"
+        },
+        "dark": {
+            "color": "Chocolate"
+        }
+    },
+    "warn": {   // example custom style with yellow color
+        "gutterIconColor": "#F4F400",
+        "overviewRulerColor": "#F4F400B0",
         "light": {
             "fontWeight": "bold"
         },

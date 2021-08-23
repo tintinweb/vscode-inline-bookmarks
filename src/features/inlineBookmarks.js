@@ -229,7 +229,7 @@ class InlineBookmarksCtrl {
     }
 
     async _decorateWords(editor, words, style, noAdd) {
-        const decoStyle = this.styles[style] || this.styles['default'];
+        const decoStyle = this.styles[style].type || this.styles['default'].type;
 
         let locations = this._findWords(editor.document, words);
         editor.setDecorations(decoStyle, locations);  // set decorations
@@ -304,58 +304,41 @@ class InlineBookmarksCtrl {
         return { ...defaultWords, ...settings.extensionConfig().expert.custom.words.mapping };
     }
 
+    _getBookmarkDataUri(color) {
+        return vscode.Uri.parse(
+            "data:image/svg+xml," +
+            encodeURIComponent(`<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" enable-background="new 0 0 48 48"><path fill="${color}" d="M37,43l-13-6l-13,6V9c0-2.2,1.8-4,4-4h18c2.2,0,4,1.8,4,4V43z"/></svg>`)
+        );
+    }
+
+    _getDecorationStyle(decoOptions) {
+        return { type: vscode.window.createTextEditorDecorationType(decoOptions), options: decoOptions };
+    }
+
+    _getDecorationDefaultStyle(color) {
+        return this._getDecorationStyle({
+            "gutterIconPath": this._getBookmarkDataUri(color),
+            "overviewRulerColor": color+"B0",   // this is safe/suitable for the defaults only.  Custom ruler color is handled below.
+            "light": {
+                "fontWeight": "bold"
+            },
+            "dark": {
+                "color": "Chocolate"
+            }
+        })
+    }
+
     _reLoadDecorations() {
-        let styles = {
-            "default": vscode.window.createTextEditorDecorationType({
-                "gutterIconPath": this.context.asAbsolutePath(path.join("images", "bookmark-blue.svg")),
-                "overviewRulerColor": "rgba(21, 126, 251, 0.7)",
-                "light": {
-                    "fontWeight": "bold"
-                },
-                "dark": {
-                    "color": "Chocolate"
-                }
-            }),
-            "red": vscode.window.createTextEditorDecorationType({
-                "gutterIconPath": this.context.asAbsolutePath(path.join("images", "bookmark-red.svg")),
-                "overviewRulerColor": "rgba(244, 67, 54, 0.7)",
-                "light": {
-                    "fontWeight": "bold"
-                },
-                "dark": {
-                    "color": "Chocolate"
-                }
-            }),
-            "blue": vscode.window.createTextEditorDecorationType({
-                "gutterIconPath": this.context.asAbsolutePath(path.join("images", "bookmark-blue.svg")),
-                "overviewRulerColor": "rgba(21, 126, 251, 0.7)",
-                "light": {
-                    "fontWeight": "bold"
-                },
-                "dark": {
-                    "color": "Chocolate"
-                }
-            }),
-            "green": vscode.window.createTextEditorDecorationType({
-                "gutterIconPath": this.context.asAbsolutePath(path.join("images", "bookmark-green.svg")),
-                "overviewRulerColor": "rgba(47, 206, 124, 0.7)",
-                "light": {
-                    "fontWeight": "bold"
-                },
-                "dark": {
-                    "color": "Chocolate"
-                }
-            }),
-            "purple": vscode.window.createTextEditorDecorationType({
-                "gutterIconPath": this.context.asAbsolutePath(path.join("images", "bookmark-purple.svg")),
-                "overviewRulerColor": "rgba(198, 121, 224, 0.7)",
-                "light": {
-                    "fontWeight": "bold"
-                },
-                "dark": {
-                    "color": "Chocolate"
-                }
-            })
+        const blue      = '#157EFB';
+        const green     = '#2FCE7C';
+        const purple    = '#C679E0';
+        const red       = '#F44336';
+        let styles      = {
+            "default":  this._getDecorationDefaultStyle(blue),
+            "red":      this._getDecorationDefaultStyle(red),
+            "blue":     this._getDecorationDefaultStyle(blue),
+            "green":    this._getDecorationDefaultStyle(green),
+            "purple":   this._getDecorationDefaultStyle(purple)
         };
 
         let customStyles = settings.extensionConfig().expert.custom.styles;
@@ -368,8 +351,14 @@ class InlineBookmarksCtrl {
 
             let decoOptions = { ...customStyles[decoId] };
 
-            //fix path
-            decoOptions.gutterIconPath = this.context.asAbsolutePath(decoOptions.gutterIconPath);
+            // default to blue if neither an icon path nor an icon color is specified
+            if (!decoOptions.gutterIconPath) {
+                decoOptions.gutterIconColor = decoOptions.gutterIconColor || blue;
+            }
+
+            //apply icon color if provided, otherwise fix the path
+            decoOptions.gutterIconPath = decoOptions.gutterIconColor ? this._getBookmarkDataUri(decoOptions.gutterIconColor) : this.context.asAbsolutePath(decoOptions.gutterIconPath);
+
             //overview
             if (decoOptions.overviewRulerColor) {
                 decoOptions.overviewRulerLane = vscode.OverviewRulerLane.Full;
@@ -378,7 +367,7 @@ class InlineBookmarksCtrl {
             if (decoOptions.backgroundColor) {
                 decoOptions.isWholeLine = true;
             }
-            styles[decoId] = vscode.window.createTextEditorDecorationType(decoOptions);
+            styles[decoId] = this._getDecorationStyle(decoOptions);
         }
 
         return styles;
@@ -472,7 +461,7 @@ class InlineBookmarksDataModel {
                             type: NodeType.LOCATION,
                             category: cat,
                             parent: element,
-                            iconPath: vscode.Uri.file(this.controller.context.asAbsolutePath(path.join("images", `bookmark-${cat}.svg`)))
+                            iconPath: this.controller.styles[cat].options.gutterIconPath
                         };
                     });
                 }).flat(1);
