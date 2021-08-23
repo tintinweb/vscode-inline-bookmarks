@@ -216,9 +216,13 @@
                 },
                 "inline-bookmarks.view.lineMode": {
                     "category": "view",
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Jump to Next/Previous Bookmark will jump based on the current line number instead of the current selected bookmark."
+                    "type": "string",
+                    "enum": [
+                        "selected-bookmark",
+                        "current-line"
+                    ],
+                    "default": "selected-bookmark",
+                    "description": "Defines Jump to Next/Previous Bookmark behavior. **selected-bookmark** (Default): jump based on selected bookmark in editor. **current-line**: jump based on the current selected line number in the editor."
                 },
                 "inline-bookmarks.view.words.hide": {
                     "category": "view",

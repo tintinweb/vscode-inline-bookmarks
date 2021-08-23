@@ -11,17 +11,19 @@ const settings = require('./settings');
 const {InlineBookmarksCtrl, InlineBookmarkTreeDataProvider} = require('./features/inlineBookmarks');
 
 
-function editorJumptoRange(range) {
+function editorJumptoRange(range, editor) {
+
+    editor = editor || vscode.window.activeTextEditor; //provided editor or fall back to active
 
     let revealType = vscode.TextEditorRevealType.InCenter;
     let selection = new vscode.Selection(range.start.line, range.start.character, range.end.line, range.end.character);
 
-    if (range.start.line === vscode.window.activeTextEditor.selection.active.line) {
+    if (range.start.line === editor.selection.active.line) {
         revealType = vscode.TextEditorRevealType.InCenterIfOutsideViewport;
     }
 
-    vscode.window.activeTextEditor.selection = selection;
-    vscode.window.activeTextEditor.revealRange(selection, revealType);
+    editor.selection = selection;
+    editor.revealRange(selection, revealType);
 }
 
 function editorFindNearestBookmark(documentUri, treeDataProvider, anchor, overrideStrategy){
@@ -90,7 +92,7 @@ function onActivate(context) {
         vscode.commands.registerCommand("inlineBookmarks.jumpToRange", (documentUri, range) => {
             vscode.workspace.openTextDocument(documentUri).then(doc => {
                 vscode.window.showTextDocument(doc).then(editor => {
-                    editorJumptoRange(range);
+                    editorJumptoRange(range, editor);
                 });
             });
         })
@@ -118,7 +120,7 @@ function onActivate(context) {
             let element;
             const lineMode = settings.extensionConfig().view.lineMode;
 
-            if (treeView.visible && treeView.selection.length && !lineMode) {
+            if (treeView.visible && treeView.selection.length && lineMode === "selected-bookmark") {
                 //treview is visible and item selected.  If lineMode, ignore the current selected bookmark and rely on "chapter" below.
                 element = treeView.selection[0];
             } else {
@@ -133,14 +135,14 @@ function onActivate(context) {
             }
             let neighbors = treeDataProvider.model.getNeighbors(element);
             let target = neighbors.next;
-            if(lineMode && !neighbors.previous && activeEditor.selections[0].anchor.line < element.location.range.start.line){
+            if(lineMode === "current-line" && !neighbors.previous && activeEditor.selections[0].anchor.line < element.location.range.start.line){
                 // When lineMode is enabled, the chapter "next" target is almost always correct, except when the anchor is before the first bookmark
                 target = element;
             }
             if(target){
                 vscode.workspace.openTextDocument(target.location.uri).then(doc => {
                     vscode.window.showTextDocument(doc).then(editor => {
-                        editorJumptoRange(target.location.range);
+                        editorJumptoRange(target.location.range, editor);
                     });
                 });
             }
@@ -151,7 +153,7 @@ function onActivate(context) {
             let element;
             const lineMode = settings.extensionConfig().view.lineMode;
 
-            if (treeView.visible && treeView.selection.length && !lineMode) {
+            if (treeView.visible && treeView.selection.length && lineMode === "selected-bookmark") {
                 //treview is visible and item selected.  If lineMode, ignore the current selected bookmark and rely on "chapter" below.
                 element = treeView.selection[0];
             } else {
@@ -166,14 +168,14 @@ function onActivate(context) {
             }
             let neighbors = treeDataProvider.model.getNeighbors(element);
             let target = neighbors.previous;
-            if(lineMode && activeEditor.selections[0].anchor.line > element.location.range.start.line){
+            if(lineMode === "current-line" && activeEditor.selections[0].anchor.line > element.location.range.start.line){
                 // When lineMode is enabled, the chapter "prev" target is almost always wrong, so override to "element" except when the anchor is on the same line as the bookmark
                 target = element;
             }
             if(target){
                 vscode.workspace.openTextDocument(target.location.uri).then(doc => {
                     vscode.window.showTextDocument(doc).then(editor => {
-                        editorJumptoRange(target.location.range);
+                        editorJumptoRange(target.location.range, editor);
                     });
                 });
             }
