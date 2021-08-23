@@ -116,16 +116,16 @@ function onActivate(context) {
     context.subscriptions.push(
         vscode.commands.registerCommand("inlineBookmarks.jumpToNext", () => {
             let element;
-            
+
             if (treeView.visible && treeView.selection.length) {
                 //treview is visible and item selected
                 element = treeView.selection[0];
             } else {
                 //no select, find nearest bookmark in editor
-                if(!activeEditor || !activeEditor._selections.length || !activeEditor.document){
+                if(!activeEditor || !activeEditor.selections.length || !activeEditor.document){
                     return;
                 }
-                element = editorFindNearestBookmark(activeEditor.document.uri, treeDataProvider, activeEditor._selections[0].anchor, "chapter");
+                element = editorFindNearestBookmark(activeEditor.document.uri, treeDataProvider, activeEditor.selections[0].anchor, "chapter");
             }
             if(!element){
                 return;
@@ -143,16 +143,16 @@ function onActivate(context) {
     context.subscriptions.push(
         vscode.commands.registerCommand("inlineBookmarks.jumpToPrevious", () => {
             let element;
-            
+
             if (treeView.visible && treeView.selection.length) {
                 //treview is visible and item selected
                 element = treeView.selection[0];
             } else {
                 //no select, find nearest bookmark in editor
-                if(!activeEditor || !activeEditor._selections.length || !activeEditor.document){
+                if(!activeEditor || !activeEditor.selections.length || !activeEditor.document){
                     return;
                 }
-                element = editorFindNearestBookmark(activeEditor.document.uri, treeDataProvider, activeEditor._selections[0].anchor, "chapter");
+                element = editorFindNearestBookmark(activeEditor.document.uri, treeDataProvider, activeEditor.selections[0].anchor, "chapter");
             }
             if(!element){
                 return;
