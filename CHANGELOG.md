@@ -1,7 +1,8 @@
 # Change Log
 
 ## 0.0.24
-- new: settings `inline-bookmarks.view.lineMode` allows to specify the behavior when jumping to the next/previous bookmark. Either use the current `selected-bookmark` or the `current-line` selected in the editor as the reference for the next jump. - see #40, #41 (thanks @rkodey 🙌)
+- new: support for custom colored bookmarks. - see #30, #42 (thanks @rkodey 🙌)
+- new: `inline-bookmarks.view.lineMode` allows to specify the behavior when jumping to the next/previous bookmark. Either use the current `selected-bookmark` or the `current-line` selected in the editor as the reference for the next jump. - see #40, #41 (thanks @rkodey 🙌)
 - fixed: jump errors due to vscode api misuse - see #38, #39 (thanks @rkodey 🙌)
 
 ## 0.0.23
