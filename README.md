@@ -86,8 +86,8 @@ Buttons (left to right):
   * configure temporary overrides for trigger words to be exempt from decoration (matches begin of word)
 * Custom Styles
   * be aware that existing styles can be overridden
-  * `gutterIconPath` may refer to only the four images provided with the extension right now: `images/bookmark-{red,green,blue,purple}.svg`. See example below.
   * `gutterIconColor` may be used to specify a custom icon color using any RGBA format. gutterIconColor will override gutterIconPath. See example below.
+  * (deprecated) `gutterIconPath` may refer to only the four images provided with the extension right now: `images/bookmark-{red,green,blue,purple}.svg`. See example below.
 * Custom word mappings
   * You can assign multiple regex trigger words to a decoration style. See example below.
 
@@ -96,7 +96,7 @@ Buttons (left to right):
 ```json
 "inline-bookmarks.expert.custom.styles": {
     "default": {
-        "gutterIconPath": "images/bookmark-blue.svg",
+        "gutterIconColor": "#157EFB",
         "overviewRulerColor": "rgba(21, 126, 251, 0.7)",
         "light": {
             "fontWeight": "bold"
@@ -106,7 +106,6 @@ Buttons (left to right):
         }
     },
     "red": {
-        "gutterIconPath": "images/bookmark-red.svg",
         "gutterIconColor": "#F44336",
         "light": {
             "fontWeight": "bold"
@@ -116,7 +115,7 @@ Buttons (left to right):
         }
     },
     "blue": {
-        "gutterIconPath": "images/bookmark-blue.svg",
+        "gutterIconColor": "#157EFB",
         "light": {
             "fontWeight": "bold"
         },
@@ -125,7 +124,7 @@ Buttons (left to right):
         }
     },
     "green": {
-        "gutterIconPath": "images/bookmark-green.svg",
+        "gutterIconColor": "#2FCE7C",
         "light": {
             "fontWeight": "bold"
         },
@@ -134,7 +133,7 @@ Buttons (left to right):
         }
     },
     "purple": {
-        "gutterIconPath": "images/bookmark-purple.svg",
+        "gutterIconColor": "#C679E0",
         "light": {
             "fontWeight": "bold"
         },
@@ -162,7 +161,8 @@ Buttons (left to right):
     "blue": ["@audit\\-info[ \\t\\n]"],
     "purple": ["@audit\\-issue[ \t\\n]"],
     "green": ["@audit\\-ok[ \\t\\n]"],
-    "red": ["@audit[ \\t\\n]"]
+    "red": ["@audit[ \\t\\n]"],
+    "warn": ["@warn[ \\t\\n]"] 
 }
 ```
 
