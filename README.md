@@ -78,25 +78,25 @@ Buttons (left to right):
 
 ## FaQ
 
-### Q: Where do I find more settings?
+#### Q: Where do I find more settings?
 
 Go to `code → preferences → Extensions: Inline Bookmarks`.
 
-### Q: How can I reset the extensions bookmark cache in case of permanent errors?
+#### Q: How can I reset the extensions bookmark cache in case of permanent errors?
 
 Bookmarks are cached in the vscode workspace. In case of permanent "ghost entries" or other errors you might want to try to execute the command: `inlineBookmarks.debug.state.reset`. This is going to reset the cache and allow the extension to populate it from scratch. Bookmarks are typically added as you go when opening new files in the editor. You can also make the extension scan the workspace for files containing Bookmarks. We don't do this automatically as it is quite resource intensive.
 
-### Q: How can I control which paths/file-extensions are being processed by the extension?
+#### Q: How can I control which paths/file-extensions are being processed by the extension?
 
 By default all paths are included (`inline-bookmarks.search.includes`) except the ones defined with `inline-bookmarks.search.excludes` (supports wildcard path globs).
 
 Additionally, file-extensions configured with `inline-bookmarks.exceptions.file.extensions.ignore` will be excluded as well (prefer this over `search.excludes`). 
 
-### Q: How do I temporarily exempt certain trigger-words from being decorated?
+#### Q: How do I temporarily exempt certain trigger-words from being decorated?
 
 See `inline-bookmarks.exceptions.words.ignore` (matches the beginning of the word).
 
-### Q: How can I define custom bookmark trigger-words/labels and colors?
+#### Q: How can I define custom bookmark trigger-words/labels and colors?
 
 The extension will search for all the default trigger-words configured with the extension. Note that these default trigger-words can be overriden (or removed). In addition, we give you complete freedom over any custom trigger-words you would want to configure. See example.
 
@@ -181,6 +181,10 @@ The extension will search for all the default trigger-words configured with the 
     }
 }
 ```
+
+#### Q: How can I bind keys to `jumpToNext` and `jumpToPrevs` bookmark?
+
+See https://code.visualstudio.com/docs/getstarted/keybindings.
  
 ## Release Notes
 
