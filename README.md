@@ -75,8 +75,7 @@ Buttons (left to right):
 
  <img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/103533925-44b57f80-4e8e-11eb-8602-8fda358c8961.png">
 
-
-## FaQ
+## FAQ
 
 #### Q: Where do I find more settings?
 
