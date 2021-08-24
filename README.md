@@ -193,6 +193,10 @@ See https://code.visualstudio.com/docs/getstarted/keybindings.
 
 `inline-bookmarks.view.lineMode` can be configured to `current-line`. Also see #40.
 
+#### Q: How can I scan the workspace for bookmarks?
+
+For performance reasons we do not automatically scan the complete workspace for bookmarks. They are instead added whenever a bookmark is encountered in a file opened in the editor. Bookmarks are then cached in the workspace and revalidated when a file is opened in the editor. In order to allow you to scan the complete workspace for bookmarks we have added a command `inlineBookmarks.scanWorkspace` that is also exposed as a button in the bookmark-view. Note that this will temporarily load files matching the search path into the editor to check for bookmarks which may demand some resources. 
+
 
  
 ## Release Notes
