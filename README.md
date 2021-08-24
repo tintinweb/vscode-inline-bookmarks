@@ -30,7 +30,7 @@ The extension can be used to keep track of development notes and todo's, for doc
 
     <img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/69679883-91366500-10a9-11ea-8e36-ba3e799127b3.png">
 
-**Note:** Additional bookmark types with custom colors/decoration styles can be added in the extension settings. See [Expert](#FAQ).
+**Note:** Additional bookmark types with custom colors/decoration styles can be added in the extension settings. See [FAQ](#FAQ).
 
 * the following default trigger words/tags are configured by default:
   * `@todo` - (blue) General ToDo remark.
