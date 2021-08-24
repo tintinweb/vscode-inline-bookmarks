@@ -76,20 +76,48 @@ Buttons (left to right):
  <img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/103533925-44b57f80-4e8e-11eb-8602-8fda358c8961.png">
 
 
-## Expert
+## FaQ
 
-* reset the internal bookmarks state: `inlineBookmarks.debug.state.reset`
-  * bookmarks view is populated when files containing bookmarks are openend in the editor
-* go to the extension settings: `code → preferences → Extensions: Inline Bookmarks`
-* Exceptions
-  * configure file-extensions to be exempt from decoration
-  * configure temporary overrides for trigger words to be exempt from decoration (matches begin of word)
-* Custom Styles
-  * be aware that existing styles can be overridden
-  * `gutterIconColor` may be used to specify a custom icon color using any RGBA format. gutterIconColor will override gutterIconPath. See example below.
-  * (deprecated) `gutterIconPath` may refer to only the four images provided with the extension right now: `images/bookmark-{red,green,blue,purple}.svg`. See example below.
-* Custom word mappings
-  * You can assign multiple regex trigger words to a decoration style. See example below.
+### Q: Where do I find more settings?
+
+Go to `code → preferences → Extensions: Inline Bookmarks`.
+
+### Q: How can I reset the extensions bookmark cache in case of permanent errors?
+
+Bookmarks are cached in the vscode workspace. In case of permanent "ghost entries" or other errors you might want to try to execute the command: `inlineBookmarks.debug.state.reset`. This is going to reset the cache and allow the extension to populate it from scratch. Bookmarks are typically added as you go when opening new files in the editor. You can also make the extension scan the workspace for files containing Bookmarks. We don't do this automatically as it is quite resource intensive.
+
+### Q: How can I control which paths/file-extensions are being processed by the extension?
+
+By default all paths are included (`inline-bookmarks.search.includes`) except the ones defined with `inline-bookmarks.search.excludes` (supports wildcard path globs).
+
+Additionally, file-extensions configured with `inline-bookmarks.exceptions.file.extensions.ignore` will be excluded as well (prefer this over `search.excludes`). 
+
+### Q: How do I temporarily exempt certain trigger-words from being decorated?
+
+See `inline-bookmarks.exceptions.words.ignore` (matches the beginning of the word).
+
+### Q: How can I define custom bookmark trigger-words/labels and colors?
+
+The extension will search for all the default trigger-words configured with the extension. Note that these default trigger-words can be overriden (or removed). In addition, we give you complete freedom over any custom trigger-words you would want to configure. See example.
+
+**Note**
+
+* Existing words and styles can be overriden.
+* `gutterIconColor` may be used to specify a custom icon color using any RGBA format. gutterIconColor will override gutterIconPath. See example below.
+* (Deprecated) `gutterIconPath` may refer to only the four images provided with the extension right now: `images/bookmark-{red,green,blue,purple}.svg`. See example below. 
+* You can assign multiple regex trigger words to a decoration style. See example.
+
+**Example word mapping:** (all vscode style properties are allowed)
+
+```json
+"inline-bookmarks.expert.custom.words.mapping": {
+    "blue": ["@audit\\-info[ \\t\\n]"],
+    "purple": ["@audit\\-issue[ \t\\n]"],
+    "green": ["@audit\\-ok[ \\t\\n]"],
+    "red": ["@audit[ \\t\\n]"],
+    "warn": ["@warn[ \\t\\n]"] 
+}
+```
 
 **Example style definition:** (all vscode style properties are allowed)
 
@@ -153,20 +181,6 @@ Buttons (left to right):
     }
 }
 ```
-
-**Example word mapping:** (all vscode style properties are allowed)
-
-```json
-"inline-bookmarks.expert.custom.words.mapping": {
-    "blue": ["@audit\\-info[ \\t\\n]"],
-    "purple": ["@audit\\-issue[ \t\\n]"],
-    "green": ["@audit\\-ok[ \\t\\n]"],
-    "red": ["@audit[ \\t\\n]"],
-    "warn": ["@warn[ \\t\\n]"] 
-}
-```
-
-* Note: gutter icons are hardcoded at this time.
  
 ## Release Notes
 
