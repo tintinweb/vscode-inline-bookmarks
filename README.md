@@ -107,7 +107,7 @@ The extension will search for all the default trigger-words configured with the 
 * (Deprecated) `gutterIconPath` may refer to only the four images provided with the extension right now: `images/bookmark-{red,green,blue,purple}.svg`. See example below. 
 * You can assign multiple regex trigger words to a decoration style. See example.
 
-**Example word mapping:** (all vscode style properties are allowed)
+**Example word mapping:** (accepts regular expressions; `\` needs to be encoded as `\\`)
 
 ```json
 "inline-bookmarks.expert.custom.words.mapping": {
@@ -119,7 +119,7 @@ The extension will search for all the default trigger-words configured with the 
 }
 ```
 
-**Example style definition:** (all vscode style properties are allowed)
+**Example style definition:** (all [vscode style properties](https://code.visualstudio.com/api/references/vscode-api#DecorationRenderOptions) are allowed)
 
 ```json
 "inline-bookmarks.expert.custom.styles": {
