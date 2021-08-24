@@ -185,6 +185,16 @@ The extension will search for all the default trigger-words configured with the 
 #### Q: How can I bind keys to `jumpToNext` and `jumpToPrevs` bookmark?
 
 See https://code.visualstudio.com/docs/getstarted/keybindings.
+
+#### Q: How can I change the bookmark-view's follow mode?
+
+`inline-bookmarks.view.followMode` allows you to specify if you want to select the `nearest` bookmark relative to the current editor selection (default) or the next one (`chapter` mode).
+
+#### Q: How can I make the bookmark-view's `jumpToNext` and `jumpToPrevs` behavior use the current selected line instead of the last selected bookmark?
+
+`inline-bookmarks.view.lineMode` can be configured to `current-line`. Also see #40.
+
+
  
 ## Release Notes
 
