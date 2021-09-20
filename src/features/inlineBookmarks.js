@@ -73,7 +73,7 @@ class Commands {
             let resource = vscode.Uri.parse(uri).fsPath;
             let fname = path.parse(resource).base;
 
-            if(!filter(resource)){
+            if(filter && !filter(resource)){
                 return;
             }
 
