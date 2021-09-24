@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.0.25
+- fix: list bookmarks not working correctly - #43
+
 ## 0.0.24
 - new: support for custom bookmarks colors. More information see [Readme.md/FAQ/Custom Styles and Mapping](./README.md#FAQ) Settings - see #30, #42 (thanks @rkodey)
 - new: `inline-bookmarks.view.lineMode` allows to specify the behavior when jumping to the next/previous bookmark. Either use the current `selected-bookmark` or the `current-line` selected in the editor as the reference for the next jump. - see #40, #41 (thanks @rkodey)
