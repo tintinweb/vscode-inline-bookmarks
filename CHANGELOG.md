@@ -1,6 +1,16 @@
 # Change Log
 
 ## 0.0.25
+- new: config setting: `inline-bookmarks.view.showVisibleFilesOnlyMode =  "allVisibleEditors" || "onlyActiveEditor"` to control the Inline Bookmarks View's "show visible editors only" behavior - #49
+  - `allVisibleEditors` - default behavior. with "show visible editors only" and `allVisibleEditors` mode bookmarks for all visible editors are shown in the Inline Bookmarks View
+  - `onlyActiveEditor` - with "show visible editors only" and `allVisibleEditors` mode only bookmarks for the currently selected/active editor are shown in the Inline Bookmarks View
+
+- fix: default bookmark/tag regex to include all whitespaces (including CRLF). - #48
+
+
+"onlyActiveEditor
+
+## 0.0.25
 - fix: list bookmarks not working correctly - #43
 
 ## 0.0.24
