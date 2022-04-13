@@ -8,8 +8,6 @@
 - fix: default bookmark/tag regex to include all whitespaces (including CRLF). - #48
 
 
-"onlyActiveEditor
-
 ## 0.0.25
 - fix: list bookmarks not working correctly - #43
 
