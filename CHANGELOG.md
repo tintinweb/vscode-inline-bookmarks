@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.0.25
+## 0.0.26
 - new: config setting: `inline-bookmarks.view.showVisibleFilesOnlyMode =  "allVisibleEditors" || "onlyActiveEditor"` to control the Inline Bookmarks View's "show visible editors only" behavior - #49
   - `allVisibleEditors` - default behavior. with "show visible editors only" and `allVisibleEditors` mode bookmarks for all visible editors are shown in the Inline Bookmarks View
   - `onlyActiveEditor` - with "show visible editors only" and `allVisibleEditors` mode only bookmarks for the currently selected/active editor are shown in the Inline Bookmarks View
