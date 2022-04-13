@@ -429,7 +429,14 @@ class InlineBookmarksDataModel {
         let fileBookmarks = Object.keys(this.controller.bookmarks);
         
         if (settings.extensionConfig().view.showVisibleFilesOnly) {
-            let visibleEditorUris = vscode.window.visibleTextEditors.map(te => te.document.uri.path);
+
+            let visibleEditorUris;
+            if(settings.extensionConfig().view.showVisibleFilesOnlyMode === "onlyActiveEditor") {
+                visibleEditorUris = [vscode.window.activeTextEditor.document.uri.path];
+            } else {
+                visibleEditorUris = vscode.window.visibleTextEditors.map(te => te.document.uri.path);
+            }
+
             fileBookmarks = fileBookmarks.filter(v => visibleEditorUris.includes(vscode.Uri.parse(v).path));
         }
 
