@@ -192,6 +192,16 @@
                     "default": false,
                     "description": "Show bookmarks for visible editors/files only."
                 },
+                "inline-bookmarks.view.showVisibleFilesOnlyMode": {
+                    "category": "view",
+                    "type": "string",
+                    "enum": [
+                        "allVisibleEditors",
+                        "onlyActiveEditor"
+                    ],
+                    "default": "allVisibleEditors",
+                    "description": "Select 'Show Visible editors only' mode. Either show bookmarks for all visible editors or only for the currently selected editor. default: All Visible Editors"
+                },
                 "inline-bookmarks.view.expanded": {
                     "category": "view",
                     "type": "boolean",
