@@ -1,8 +1,9 @@
 {
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
-    "description": "Customizable inline Bookmarks",
+    "description": "Customizable Inline Bookmarks",
     "version": "0.0.27",
+    "license": "GPLv3",
     "keywords": [
         "bookmark",
         "bookmarks",
