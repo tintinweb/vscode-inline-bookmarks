@@ -2,6 +2,7 @@
 
 ## 0.0.27
 - fix: Command 'Select Bookmark' results in error 'filter is not a function' - #50 #51
+- update: License 👉 [GPLv3](LICENSE)
 
 ## 0.0.26
 - new: config setting: `inline-bookmarks.view.showVisibleFilesOnlyMode =  "allVisibleEditors" || "onlyActiveEditor"` to control the Inline Bookmarks View's "show visible editors only" behavior - #49
