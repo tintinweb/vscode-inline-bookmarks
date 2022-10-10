@@ -545,18 +545,19 @@ class InlineBookmarkTreeDataProvider {
         if (!element) {
             return element; // undef
         }
-        return {
-            id: element.type == NodeType.LOCATION ? this._getId(element.location) : this._getId(element.resource),
-            resourceUri: element.resource,
-            label: this._formatLabel(element.label),
-            iconPath: element.iconPath,
-            collapsibleState: element.type == NodeType.LOCATION ? 0 : settings.extensionConfig().view.expanded ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.Collapsed,
-            command: element.type == NodeType.LOCATION && element.location ? {
-                command: 'inlineBookmarks.jumpToRange',
-                arguments: [element.location.uri, element.location.range],
-                title: 'JumpTo'
-            } : 0
-        };
+        let item = new vscode.TreeItem(
+            this._formatLabel(element.label), 
+            element.type == NodeType.LOCATION ? 0 : settings.extensionConfig().view.expanded ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.Collapsed
+            );
+        item.id = element.type == NodeType.LOCATION ? this._getId(element.location) : this._getId(element.resource);
+        item.resourceUri = element.resource;
+        item.iconPath = element.iconPath;
+        item.command = element.type == NodeType.LOCATION && element.location ? {
+            command: 'inlineBookmarks.jumpToRange',
+            arguments: [element.location.uri, element.location.range],
+            title: 'JumpTo'
+        } : 0;
+        return item;
     }
 
     /* 
