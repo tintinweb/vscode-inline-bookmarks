@@ -241,6 +241,12 @@
                     "default": false,
                     "markdownDescription": "Hide tags/trigger words in bookmark view if a comment was provided."
                 },
+                "inline-bookmarks.view.hide.gitIgnore": {
+                    "category": "view",
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Hide items from bookmark view that mach a path from .gitignore (requires reload)"
+                },
                 "inline-bookmarks.default.words.red": {
                     "category": "trigger words",
                     "type": "string",
@@ -339,5 +345,8 @@
             }
         }
     },
-    "dependencies": {}
+    "dependencies": {
+        "ignore": "^5.2.0",
+        "vscode-uri": "^3.0.3"
+    }
 }
