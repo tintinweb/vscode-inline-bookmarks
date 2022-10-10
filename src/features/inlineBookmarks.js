@@ -515,6 +515,7 @@ class InlineBookmarksDataModel {
 
         return ret;
     }
+
 }
 
 class InlineBookmarkTreeDataProvider {
@@ -527,14 +528,15 @@ class InlineBookmarkTreeDataProvider {
         this.model = new InlineBookmarksDataModel(inlineBookmarksController);
 
         this.filterTreeViewWords = [];
+        this.gitIgnoreHandler = undefined;
     }
 
     /** events */
 
     /** methods */
 
-    getChildren(element) {
-        return element ? this._filterTreeView(this.model.getChildren(element)) : this.model.getRoot();
+    getChildren(element) {  
+        return this._filterTreeView(element ? this.model.getChildren(element) : this.model.getRoot());
     }
 
     getParent(element) {
@@ -576,15 +578,25 @@ class InlineBookmarkTreeDataProvider {
     }
 
     _filterTreeView(elements) {
-        if (!this.filterTreeViewWords || !this.filterTreeViewWords.length) {
-            return elements;
+
+        if(this.gitIgnoreHandler && this.gitIgnoreHandler.filter){
+            elements = elements.filter(e => this.gitIgnoreHandler.filter(e.resource));
         }
-        return elements.filter(e => this.filterTreeViewWords.some(rx => new RegExp(rx, 'g').test(e.label)));
+
+        if (this.filterTreeViewWords && this.filterTreeViewWords.length) {
+            elements = elements.filter(e => this.filterTreeViewWords.some(rx => new RegExp(rx, 'g').test(e.label)));
+        }
+
+        return elements;
     }
     /** other methods */
 
     setTreeViewFilterWords(words) {
         this.filterTreeViewWords = words;
+    }
+
+    setTreeViewGitIgnoreHandler(gi) {
+        this.gitIgnoreHandler = gi;
     }
 
     refresh() {

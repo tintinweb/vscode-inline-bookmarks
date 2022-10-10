@@ -2,7 +2,7 @@
     "name": "vscode-inline-bookmarks",
     "displayName": "Inline Bookmarks",
     "description": "Customizable Inline Bookmarks",
-    "version": "0.0.27",
+    "version": "0.1.0",
     "license": "GPLv3",
     "keywords": [
         "bookmark",
@@ -241,6 +241,12 @@
                     "default": false,
                     "markdownDescription": "Hide tags/trigger words in bookmark view if a comment was provided."
                 },
+                "inline-bookmarks.view.exclude.gitIgnore": {
+                    "category": "view",
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Hide items from the bookmark view that match an exclusion defined by a .gitignore file (requires reload)"
+                },
                 "inline-bookmarks.default.words.red": {
                     "category": "trigger words",
                     "type": "string",
@@ -339,5 +345,8 @@
             }
         }
     },
-    "dependencies": {}
+    "dependencies": {
+        "ignore": "^5.2.0",
+        "vscode-uri": "^3.0.3"
+    }
 }

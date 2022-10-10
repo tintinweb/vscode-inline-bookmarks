@@ -9,6 +9,7 @@
 const vscode = require('vscode');
 const settings = require('./settings');
 const {InlineBookmarksCtrl, InlineBookmarkTreeDataProvider} = require('./features/inlineBookmarks');
+const GitIgnore = require('./features/gitignore');
 
 
 function editorJumptoRange(range, editor) {
@@ -321,6 +322,25 @@ function onActivate(context) {
         }
 
         treeView.reveal(focusBookmark, {selected:true, focus:false});
+    }
+
+    /************* file-system watcher features */
+    if(settings.extensionConfig().view.exclude.gitIgnore){
+        /* optional feature */
+        const gitIgnoreFilter = new GitIgnore();
+        treeDataProvider.setTreeViewGitIgnoreHandler(gitIgnoreFilter);
+        const gitIgnoreWatcher = vscode.workspace.createFileSystemWatcher('**/.gitignore');
+        context.subscriptions.push(gitIgnoreWatcher);
+        
+        gitIgnoreWatcher.onDidChange(uri => gitIgnoreFilter.onDidChange(uri));
+        gitIgnoreWatcher.onDidDelete(uri => gitIgnoreFilter.onDidDelete(uri));
+        gitIgnoreWatcher.onDidCreate(uri => gitIgnoreFilter.onDidChange(uri));
+
+        vscode.workspace.findFiles('**/.gitignore', '**​/node_modules/**', 20).then( uri => {
+            if(uri && uri.length){
+                uri.forEach(u => gitIgnoreFilter.onDidChange(u));
+            }
+        });
     }
 }
 

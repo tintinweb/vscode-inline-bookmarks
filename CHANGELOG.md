@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.1.0
+- fix: VSCode 1.72.0 introduced an incompatibility raising the error: 'Extension tintinweb.vscode-inline-bookmarks has provided an invalid tree item.' - #56 #57
+- new: Optionally, hide items from the bookmarks view that are excluded by a downstream `.gitignore` file (requires reload)
+  - option: `inline-bookmarks.view.exclude.gitIgnore` default: `false`
+
+<img width="541" alt="image" src="https://user-images.githubusercontent.com/2865694/194845897-2146a70f-ac11-4ba9-8406-a1b582e9bf3c.png">
+
+
+
 ## 0.0.27
 - fix: Command 'Select Bookmark' results in error 'filter is not a function' - #50 #51
 - update: License 👉 [GPLv3](LICENSE)
