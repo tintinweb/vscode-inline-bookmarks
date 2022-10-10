@@ -325,7 +325,7 @@ function onActivate(context) {
     }
 
     /************* file-system watcher features */
-    if(settings.extensionConfig().view.hide.gitIgnore){
+    if(settings.extensionConfig().view.exclude.gitIgnore){
         /* optional feature */
         const gitIgnoreFilter = new GitIgnore();
         treeDataProvider.setTreeViewGitIgnoreHandler(gitIgnoreFilter);

@@ -75,6 +75,10 @@ Buttons (left to right):
 
  <img width="350" alt="inline_bookmarks_icon" src="https://user-images.githubusercontent.com/2865694/103533925-44b57f80-4e8e-11eb-8602-8fda358c8961.png">
 
+Optionally, hide items that are excluded by a downstream `.gitignore` file from the bookmarks view (`inline-bookmarks.view.exclude.gitIgnore`; default: `false`; requires reload).
+
+<img width="541" alt="image" src="https://user-images.githubusercontent.com/2865694/194845897-2146a70f-ac11-4ba9-8406-a1b582e9bf3c.png">
+
 ## FAQ
 
 #### Q: Where do I find more settings?
