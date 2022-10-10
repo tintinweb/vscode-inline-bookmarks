@@ -245,7 +245,7 @@
                     "category": "view",
                     "type": "boolean",
                     "default": false,
-                    "markdownDescription": "Hide items from bookmark view that mach a path from .gitignore (requires reload)"
+                    "markdownDescription": "Hide items from the bookmark view that match an exclusion defined by a .gitignore file (requires reload)"
                 },
                 "inline-bookmarks.default.words.red": {
                     "category": "trigger words",
