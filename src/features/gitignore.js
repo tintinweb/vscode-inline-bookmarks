@@ -36,10 +36,10 @@ module.exports = class GitIgnore {
         /***
          * 
          *   target: 
-         *      file:///Users/tintin/workspace/solidity/reservoir-audit-2022-08/x/y/z/kyc/ignoreMe.file
+         *      file:///folderA/folderB/x/y/z/kyc/ignoreMe.file
          *   gitignore:
-         *      file:///Users/tintin/workspace/solidity/reservoir-audit-2022-08/        --> [patt, patt, patt, ...]  #1
-         *      file:///Users/tintin/workspace/solidity/reservoir-audit-2022-08/x/y/z   --> [patt, patt, patt, ...]  #2
+         *      file:///folderA/folderB/        --> [patt, patt, patt, ...]  #1
+         *      file:///folderA/folderB/x/y/z   --> [patt, patt, patt, ...]  #2
          * 
          * 
          */
