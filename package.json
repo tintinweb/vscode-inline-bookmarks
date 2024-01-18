@@ -1,352 +1,352 @@
 {
-    "name": "vscode-inline-bookmarks",
-    "displayName": "Inline Bookmarks",
-    "description": "Customizable Inline Bookmarks",
-    "version": "0.1.0",
-    "license": "GPLv3",
-    "keywords": [
-        "bookmark",
-        "bookmarks",
-        "audit",
-        "audit-tag",
-        "tag",
-        "sticky",
-        "jump",
-        "mark",
-        "selection",
-        "navigation",
-        "highlight"
-    ],
-    "publisher": "tintinweb",
-    "icon": "images/icon.png",
-    "engines": {
-        "vscode": "^1.20.2"
-    },
-    "categories": [
-        "Other"
-    ],
-    "bugs": {
-        "url": "https://github.com/tintinweb/vscode-inline-bookmarks/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/tintinweb/vscode-inline-bookmarks"
-    },
-    "activationEvents": [
-        "*",
-        "onView:inlineBookmarksExplorer",
-        "onCommand:inlineBookmarks.jumpToRange",
-        "onCommand:inlineBookmarks.refresh",
-        "onCommand:inlineBookmarks.toggleShowVisibleFilesOnly",
-        "onCommand:inlineBookmarks.toggleViewKeepFilesExpanded",
-        "onCommand:inlineBookmarks.debug.state.reset",
-        "onCommand:inlineBookmarks.showSelectBookmark",
-        "onCommand:inlineBookmarks.showSelectVisibleBookmark",
-        "onCommand:inlineBookmarks.listBookmarks",
-        "onCommand:inlineBookmarks.listVisibleBookmarks",
-        "onCommand:inlineBookmarks.scanWorkspace"
-    ],
-    "main": "./src/extension.js",
-    "contributes": {
-        "commands": [
-            {
-                "command": "inlineBookmarks.refresh",
-                "title": "Quick-Refresh View",
-                "category": "InlineBookmarks",
-                "icon": {
-                    "light": "images/refresh-light.svg",
-                    "dark": "images/refresh-dark.svg"
-                }
-            },
-            {
-                "command": "inlineBookmarks.toggleShowVisibleFilesOnly",
-                "title": "Toggle: Show Bookmarks for Visible Editors / All Files",
-                "category": "InlineBookmarks",
-                "icon": {
-                    "light": "images/toggle-files-light.svg",
-                    "dark": "images/toggle-files-dark.svg"
-                }
-            },
-            {
-                "command": "inlineBookmarks.toggleViewKeepFilesExpanded",
-                "title": "Toggle: Keep File View expanded",
-                "category": "InlineBookmarks",
-                "icon": "images/toggle-expanded.svg"
-            },
-            {
-                "command": "inlineBookmarks.jumpToPrevious",
-                "title": "Jump to Previous",
-                "category": "InlineBookmarks",
-                "icon": {
-                    "light": "images/jump-previous.svg",
-                    "dark": "images/jump-previous-dark.svg"
-                }
-            },
-            {
-                "command": "inlineBookmarks.jumpToNext",
-                "title": "Jump to Next",
-                "category": "InlineBookmarks",
-                "icon": {
-                    "light": "images/jump-next.svg",
-                    "dark": "images/jump-next-dark.svg"
-                }
-            },
-            {
-                "command": "inlineBookmarks.setTreeViewFilterWords",
-                "title": "Filter View ...",
-                "category": "InlineBookmarks",
-                "icon": {
-                    "light": "images/filter-light.svg",
-                    "dark": "images/filter-dark.svg"
-                }
-            },
-            {
-                "command": "inlineBookmarks.showSelectBookmark",
-                "title": "Select Bookmark",
-                "category": "InlineBookmarks"
-            },
-            {
-                "command": "inlineBookmarks.showSelectVisibleBookmark",
-                "title": "Select Visible Bookmark",
-                "category": "InlineBookmarks"
-            },
-            {
-                "command": "inlineBookmarks.listBookmarks",
-                "title": "List Bookmarks",
-                "category": "InlineBookmarks"
-            },
-            {
-                "command": "inlineBookmarks.listVisibleBookmarks",
-                "title": "List Visible Bookmarks",
-                "category": "InlineBookmarks"
-            },
-            {
-                "command": "inlineBookmarks.scanWorkspace",
-                "title": "Scan Workspace for Bookmarks",
-                "category": "InlineBookmarks",
-                "icon": {
-                    "light": "images/scan-workspace.svg",
-                    "dark": "images/scan-workspace-dark.svg"
-                }
-            },
-            {
-                "command": "inlineBookmarks.debug.state.reset",
-                "title": "Reset the internal state to fix potential problems",
-                "category": "InlineBookmarks:Debug"
-            }
-        ],
-        "views": {
-            "explorer": [
-                {
-                    "id": "inlineBookmarksExplorer",
-                    "name": "📘 Inline Bookmarks"
-                }
-            ]
-        },
-        "menus": {
-            "view/title": [
-                {
-                    "command": "inlineBookmarks.jumpToPrevious",
-                    "when": "view == inlineBookmarksExplorer",
-                    "group": "navigation@1"
-                },
-                {
-                    "command": "inlineBookmarks.jumpToNext",
-                    "when": "view == inlineBookmarksExplorer",
-                    "group": "navigation@2"
-                },
-                {
-                    "command": "inlineBookmarks.setTreeViewFilterWords",
-                    "when": "view == inlineBookmarksExplorer",
-                    "group": "navigation@3"
-                },
-                {
-                    "command": "inlineBookmarks.toggleShowVisibleFilesOnly",
-                    "when": "view == inlineBookmarksExplorer",
-                    "group": "navigation@4"
-                },
-                {
-                    "command": "inlineBookmarks.refresh",
-                    "when": "view == inlineBookmarksExplorer",
-                    "group": "navigation@5"
-                },
-                {
-                    "command": "inlineBookmarks.scanWorkspace",
-                    "when": "view == inlineBookmarksExplorer",
-                    "group": "navigation@6"
-                }
-            ]
-        },
-        "configuration": {
-            "type": "object",
-            "title": "Inline Bookmarks",
-            "properties": {
-                "inline-bookmarks.enable": {
-                    "category": "general",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable/Disable the extension."
-                },
-                "inline-bookmarks.view.showVisibleFilesOnly": {
-                    "category": "view",
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Show bookmarks for visible editors/files only."
-                },
-                "inline-bookmarks.view.showVisibleFilesOnlyMode": {
-                    "category": "view",
-                    "type": "string",
-                    "enum": [
-                        "allVisibleEditors",
-                        "onlyActiveEditor"
-                    ],
-                    "default": "allVisibleEditors",
-                    "description": "Select 'Show Visible editors only' mode. Either show bookmarks for all visible editors or only for the currently selected editor. default: All Visible Editors"
-                },
-                "inline-bookmarks.view.expanded": {
-                    "category": "view",
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Keep File View expanded otherwise collapsed."
-                },
-                "inline-bookmarks.view.follow": {
-                    "category": "view",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Follow bookmarks while clicking in the editor window. Highlights nearest bookmarks in the bookmarks view. (see `view.followMode` to change the follow behavior)"
-                },
-                "inline-bookmarks.view.followMode": {
-                    "category": "view",
-                    "type": "string",
-                    "enum": [
-                        "nearest",
-                        "chapter"
-                    ],
-                    "default": "nearest",
-                    "markdownDescription": "Follow mode for highlighting bookmarks in the bookmarks view. **nearest** (Default): highlight nearest bookmark relative to the current selection. **chapter**: highlight nearest bookmark before or on the currently selected line."
-                },
-                "inline-bookmarks.view.lineMode": {
-                    "category": "view",
-                    "type": "string",
-                    "enum": [
-                        "selected-bookmark",
-                        "current-line"
-                    ],
-                    "default": "selected-bookmark",
-                    "description": "Defines Jump to Next/Previous Bookmark behavior. **selected-bookmark** (Default): jump based on selected bookmark in editor. **current-line**: jump based on the current selected line number in the editor."
-                },
-                "inline-bookmarks.view.words.hide": {
-                    "category": "view",
-                    "type": "boolean",
-                    "default": false,
-                    "markdownDescription": "Hide tags/trigger words in bookmark view if a comment was provided."
-                },
-                "inline-bookmarks.view.exclude.gitIgnore": {
-                    "category": "view",
-                    "type": "boolean",
-                    "default": false,
-                    "markdownDescription": "Hide items from the bookmark view that match an exclusion defined by a .gitignore file (requires reload)"
-                },
-                "inline-bookmarks.default.words.red": {
-                    "category": "trigger words",
-                    "type": "string",
-                    "default": "@audit[\\s]",
-                    "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `red`."
-                },
-                "inline-bookmarks.default.words.green": {
-                    "category": "trigger words",
-                    "type": "string",
-                    "default": "@audit\\-ok[\\s]",
-                    "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `green`."
-                },
-                "inline-bookmarks.default.words.blue": {
-                    "category": "trigger words",
-                    "type": "string",
-                    "default": "@audit\\-info[\\s], @todo[\\s], @note[\\s], @remind[\\s], @follow-up[\\s]",
-                    "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `blue`."
-                },
-                "inline-bookmarks.default.words.purple": {
-                    "category": "trigger words",
-                    "type": "string",
-                    "default": "@audit\\-issue[\\s]",
-                    "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `purple`."
-                },
-                "inline-bookmarks.exceptions.words.ignore": {
-                    "category": "exceptions",
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "A comma-separated list of tags/trigger words (`inline-bookmarks.words`) that will not be decorated."
-                },
-                "inline-bookmarks.exceptions.file.extensions.ignore": {
-                    "category": "exceptions",
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "A comma-separated list of file extensions to ignore (e.g. .java)."
-                },
-                "inline-bookmarks.expert.custom.styles": {
-                    "category": "expert",
-                    "type": "object",
-                    "default": {},
-                    "description": "Specify Custom Decoration Profiles",
-                    "properties": {}
-                },
-                "inline-bookmarks.expert.custom.words.mapping": {
-                    "category": "expert",
-                    "type": "object",
-                    "default": {},
-                    "description": "Assigns tags/trigger words to decoration profiles",
-                    "properties": {}
-                },
-                "inline-bookmarks.search.includes": {
-                    "type": "array",
-                    "default": [
-                        "**/*"
-                    ],
-                    "description": "Glob patterns that defines the files to search for. Only include files you need, DO NOT USE `{**/*.*}` for both perfmormance and avoiding binary files reason.",
-                    "items": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "description": "A glob pattern that defines the files to search for. Only include files you need, DO NOT USE `**/*.*` for both performance and avoiding binary files reason"
-                            }
-                        ]
-                    }
-                },
-                "inline-bookmarks.search.excludes": {
-                    "type": "array",
-                    "default": [
-                        "**/.git/**",
-                        "**/node_modules/**",
-                        "**/bower_components/**",
-                        "**/dist/**",
-                        "**/build/**",
-                        "**/.vscode/**",
-                        "**/.github/**",
-                        "**/_output/**",
-                        "**/*.min.*",
-                        "**/*.map",
-                        "**/.next/**"
-                    ],
-                    "description": "Glob pattern that defines files and folders to exclude while listing annotations.",
-                    "items": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "description": "A glob pattern that defines files and folders to exclude while listing annotations"
-                            }
-                        ]
-                    }
-                },
-                "inline-bookmarks.search.maxFiles": {
-                    "type": "number",
-                    "default": 5120,
-                    "description": "Max files for searching"
-                }
-            }
+  "name": "vscode-inline-bookmarks",
+  "displayName": "Inline Bookmarks",
+  "description": "Customizable Inline Bookmarks",
+  "version": "0.1.1",
+  "license": "GPLv3",
+  "keywords": [
+    "bookmark",
+    "bookmarks",
+    "audit",
+    "audit-tag",
+    "tag",
+    "sticky",
+    "jump",
+    "mark",
+    "selection",
+    "navigation",
+    "highlight"
+  ],
+  "publisher": "tintinweb",
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.20.2"
+  },
+  "categories": [
+    "Other"
+  ],
+  "bugs": {
+    "url": "https://github.com/tintinweb/vscode-inline-bookmarks/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tintinweb/vscode-inline-bookmarks"
+  },
+  "activationEvents": [
+    "*",
+    "onView:inlineBookmarksExplorer",
+    "onCommand:inlineBookmarks.jumpToRange",
+    "onCommand:inlineBookmarks.refresh",
+    "onCommand:inlineBookmarks.toggleShowVisibleFilesOnly",
+    "onCommand:inlineBookmarks.toggleViewKeepFilesExpanded",
+    "onCommand:inlineBookmarks.debug.state.reset",
+    "onCommand:inlineBookmarks.showSelectBookmark",
+    "onCommand:inlineBookmarks.showSelectVisibleBookmark",
+    "onCommand:inlineBookmarks.listBookmarks",
+    "onCommand:inlineBookmarks.listVisibleBookmarks",
+    "onCommand:inlineBookmarks.scanWorkspace"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "inlineBookmarks.refresh",
+        "title": "Quick-Refresh View",
+        "category": "InlineBookmarks",
+        "icon": {
+          "light": "images/refresh-light.svg",
+          "dark": "images/refresh-dark.svg"
         }
+      },
+      {
+        "command": "inlineBookmarks.toggleShowVisibleFilesOnly",
+        "title": "Toggle: Show Bookmarks for Visible Editors / All Files",
+        "category": "InlineBookmarks",
+        "icon": {
+          "light": "images/toggle-files-light.svg",
+          "dark": "images/toggle-files-dark.svg"
+        }
+      },
+      {
+        "command": "inlineBookmarks.toggleViewKeepFilesExpanded",
+        "title": "Toggle: Keep File View expanded",
+        "category": "InlineBookmarks",
+        "icon": "images/toggle-expanded.svg"
+      },
+      {
+        "command": "inlineBookmarks.jumpToPrevious",
+        "title": "Jump to Previous",
+        "category": "InlineBookmarks",
+        "icon": {
+          "light": "images/jump-previous.svg",
+          "dark": "images/jump-previous-dark.svg"
+        }
+      },
+      {
+        "command": "inlineBookmarks.jumpToNext",
+        "title": "Jump to Next",
+        "category": "InlineBookmarks",
+        "icon": {
+          "light": "images/jump-next.svg",
+          "dark": "images/jump-next-dark.svg"
+        }
+      },
+      {
+        "command": "inlineBookmarks.setTreeViewFilterWords",
+        "title": "Filter View ...",
+        "category": "InlineBookmarks",
+        "icon": {
+          "light": "images/filter-light.svg",
+          "dark": "images/filter-dark.svg"
+        }
+      },
+      {
+        "command": "inlineBookmarks.showSelectBookmark",
+        "title": "Select Bookmark",
+        "category": "InlineBookmarks"
+      },
+      {
+        "command": "inlineBookmarks.showSelectVisibleBookmark",
+        "title": "Select Visible Bookmark",
+        "category": "InlineBookmarks"
+      },
+      {
+        "command": "inlineBookmarks.listBookmarks",
+        "title": "List Bookmarks",
+        "category": "InlineBookmarks"
+      },
+      {
+        "command": "inlineBookmarks.listVisibleBookmarks",
+        "title": "List Visible Bookmarks",
+        "category": "InlineBookmarks"
+      },
+      {
+        "command": "inlineBookmarks.scanWorkspace",
+        "title": "Scan Workspace for Bookmarks",
+        "category": "InlineBookmarks",
+        "icon": {
+          "light": "images/scan-workspace.svg",
+          "dark": "images/scan-workspace-dark.svg"
+        }
+      },
+      {
+        "command": "inlineBookmarks.debug.state.reset",
+        "title": "Reset the internal state to fix potential problems",
+        "category": "InlineBookmarks:Debug"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "inlineBookmarksExplorer",
+          "name": "📘 Inline Bookmarks"
+        }
+      ]
     },
-    "dependencies": {
-        "ignore": "^5.2.0",
-        "vscode-uri": "^3.0.3"
+    "menus": {
+      "view/title": [
+        {
+          "command": "inlineBookmarks.jumpToPrevious",
+          "when": "view == inlineBookmarksExplorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "inlineBookmarks.jumpToNext",
+          "when": "view == inlineBookmarksExplorer",
+          "group": "navigation@2"
+        },
+        {
+          "command": "inlineBookmarks.setTreeViewFilterWords",
+          "when": "view == inlineBookmarksExplorer",
+          "group": "navigation@3"
+        },
+        {
+          "command": "inlineBookmarks.toggleShowVisibleFilesOnly",
+          "when": "view == inlineBookmarksExplorer",
+          "group": "navigation@4"
+        },
+        {
+          "command": "inlineBookmarks.refresh",
+          "when": "view == inlineBookmarksExplorer",
+          "group": "navigation@5"
+        },
+        {
+          "command": "inlineBookmarks.scanWorkspace",
+          "when": "view == inlineBookmarksExplorer",
+          "group": "navigation@6"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Inline Bookmarks",
+      "properties": {
+        "inline-bookmarks.enable": {
+          "category": "general",
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/Disable the extension."
+        },
+        "inline-bookmarks.view.showVisibleFilesOnly": {
+          "category": "view",
+          "type": "boolean",
+          "default": false,
+          "description": "Show bookmarks for visible editors/files only."
+        },
+        "inline-bookmarks.view.showVisibleFilesOnlyMode": {
+          "category": "view",
+          "type": "string",
+          "enum": [
+            "allVisibleEditors",
+            "onlyActiveEditor"
+          ],
+          "default": "allVisibleEditors",
+          "description": "Select 'Show Visible editors only' mode. Either show bookmarks for all visible editors or only for the currently selected editor. default: All Visible Editors"
+        },
+        "inline-bookmarks.view.expanded": {
+          "category": "view",
+          "type": "boolean",
+          "default": false,
+          "description": "Keep File View expanded otherwise collapsed."
+        },
+        "inline-bookmarks.view.follow": {
+          "category": "view",
+          "type": "boolean",
+          "default": true,
+          "description": "Follow bookmarks while clicking in the editor window. Highlights nearest bookmarks in the bookmarks view. (see `view.followMode` to change the follow behavior)"
+        },
+        "inline-bookmarks.view.followMode": {
+          "category": "view",
+          "type": "string",
+          "enum": [
+            "nearest",
+            "chapter"
+          ],
+          "default": "nearest",
+          "markdownDescription": "Follow mode for highlighting bookmarks in the bookmarks view. **nearest** (Default): highlight nearest bookmark relative to the current selection. **chapter**: highlight nearest bookmark before or on the currently selected line."
+        },
+        "inline-bookmarks.view.lineMode": {
+          "category": "view",
+          "type": "string",
+          "enum": [
+            "selected-bookmark",
+            "current-line"
+          ],
+          "default": "selected-bookmark",
+          "description": "Defines Jump to Next/Previous Bookmark behavior. **selected-bookmark** (Default): jump based on selected bookmark in editor. **current-line**: jump based on the current selected line number in the editor."
+        },
+        "inline-bookmarks.view.words.hide": {
+          "category": "view",
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Hide tags/trigger words in bookmark view if a comment was provided."
+        },
+        "inline-bookmarks.view.exclude.gitIgnore": {
+          "category": "view",
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Hide items from the bookmark view that match an exclusion defined by a .gitignore file (requires reload)"
+        },
+        "inline-bookmarks.default.words.red": {
+          "category": "trigger words",
+          "type": "string",
+          "default": "@audit[\\s]",
+          "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `red`."
+        },
+        "inline-bookmarks.default.words.green": {
+          "category": "trigger words",
+          "type": "string",
+          "default": "@audit\\-ok[\\s]",
+          "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `green`."
+        },
+        "inline-bookmarks.default.words.blue": {
+          "category": "trigger words",
+          "type": "string",
+          "default": "@audit\\-info[\\s], @todo[\\s], @note[\\s], @remind[\\s], @follow-up[\\s]",
+          "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `blue`."
+        },
+        "inline-bookmarks.default.words.purple": {
+          "category": "trigger words",
+          "type": "string",
+          "default": "@audit\\-issue[\\s]",
+          "markdownDescription": "A comma-separated list of tags/trigger words (regex accepted) to highlight `purple`."
+        },
+        "inline-bookmarks.exceptions.words.ignore": {
+          "category": "exceptions",
+          "type": "string",
+          "default": "",
+          "markdownDescription": "A comma-separated list of tags/trigger words (`inline-bookmarks.words`) that will not be decorated."
+        },
+        "inline-bookmarks.exceptions.file.extensions.ignore": {
+          "category": "exceptions",
+          "type": "string",
+          "default": "",
+          "markdownDescription": "A comma-separated list of file extensions to ignore (e.g. .java)."
+        },
+        "inline-bookmarks.expert.custom.styles": {
+          "category": "expert",
+          "type": "object",
+          "default": {},
+          "description": "Specify Custom Decoration Profiles",
+          "properties": {}
+        },
+        "inline-bookmarks.expert.custom.words.mapping": {
+          "category": "expert",
+          "type": "object",
+          "default": {},
+          "description": "Assigns tags/trigger words to decoration profiles",
+          "properties": {}
+        },
+        "inline-bookmarks.search.includes": {
+          "type": "array",
+          "default": [
+            "**/*"
+          ],
+          "description": "Glob patterns that defines the files to search for. Only include files you need, DO NOT USE `{**/*.*}` for both perfmormance and avoiding binary files reason.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "A glob pattern that defines the files to search for. Only include files you need, DO NOT USE `**/*.*` for both performance and avoiding binary files reason"
+              }
+            ]
+          }
+        },
+        "inline-bookmarks.search.excludes": {
+          "type": "array",
+          "default": [
+            "**/.git/**",
+            "**/node_modules/**",
+            "**/bower_components/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/.vscode/**",
+            "**/.github/**",
+            "**/_output/**",
+            "**/*.min.*",
+            "**/*.map",
+            "**/.next/**"
+          ],
+          "description": "Glob pattern that defines files and folders to exclude while listing annotations.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "A glob pattern that defines files and folders to exclude while listing annotations"
+              }
+            ]
+          }
+        },
+        "inline-bookmarks.search.maxFiles": {
+          "type": "number",
+          "default": 5120,
+          "description": "Max files for searching"
+        }
+      }
     }
+  },
+  "dependencies": {
+    "ignore": "^5.2.0",
+    "vscode-uri": "^3.0.3"
+  }
 }
